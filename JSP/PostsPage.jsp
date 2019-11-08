@@ -407,9 +407,26 @@
 				return false;
 			}
 			
+			function checkUpvoted(questionID) {
+				//alert("Check upvoted #"+questionID);
+				
+				var myParams = new XMLHttpRequest();
+				myParams.open("GET", "OneServlet?cmd="+"checkUpvote"+
+						"&questionID=" + questionID, false);
+				myParams.send();
+				
+				//alert(myParams.responseText.trim());
+				
+				if (myParams.responseText.trim().length == 0)
+					return false;
+				
+				return true;
+			}
 			
 			function loadPost(postID) {
 				//alert("Load post #" + postID);
+				
+				document.getElementById("postsSection").innerHTML = "<br/><b>Loading results...</b><br/>";
 				
 				var myParams = new XMLHttpRequest();
 				myParams.open("GET", "OneServlet?cmd="+"getPost" + "&postID="+postID, false);
@@ -437,14 +454,23 @@
 					newHTML += "<b id=\"questionErrorMessage\" style=\"color:red;\"></b><br/>";
 				}
 				
+				
+				
 				newHTML += "<br/>";
 				
 				var numQuestions = postData["questions"]["num"];
 				
 				for (var i = 0; i < numQuestions; i++) {
+					if (isSignedIn()) {
+						if (checkUpvoted(postData["questions"]["questions"][i]["id"]))
+							newHTML += "<button id=\"btnUV"+postData["questions"]["questions"][i]["id"]+"\" onclick=\"vote(" +  postData["questions"]["questions"][i]["id"] + ","+postID+")\">+</button>";
+						else
+							newHTML += "<button id=\"btnUV"+postData["questions"]["questions"][i]["id"]+"\" onclick=\"vote(" +  postData["questions"]["questions"][i]["id"] + ","+postID+ ")\">-</button>";
+					}
+					newHTML += "<a style=\"align:left;\"> " + postData["questions"]["questions"][i]["upvotes"] + "</a><br/>";
 					newHTML += "<a>" + postData["questions"]["questions"][i]["text"] + "</a>";
 					newHTML += "<a> - " + postData["questions"]["questions"][i]["userName"] + "</a>";
-					//newHTML += "<a style=\"align:left;\"> -- " + postData["questions"]["questions"][i]["upvotes"] + "</a><br/>";
+					
 					
 					if (isSignedIn()) {
 						newHTML += "<form style=\"margin-left:2%;\" id=\"newAnswerForm" + postData["questions"]["questions"][i]["id"] + "\" onsubmit=\"return newAnswer(" + postData["questions"]["questions"][i]["id"] + ", " + postID + ")\">";
@@ -458,6 +484,7 @@
 						newHTML += "<br/><a style=\"margin-left:5%;\">" + postData["questions"]["questions"][i]["answers"]["answers"][j]["text"] + "</a>";
 						newHTML += "<a> - " + postData["questions"]["questions"][i]["answers"]["answers"][j]["userName"] + "</a><br/>";
 					}
+				
 					
 					newHTML += "<br/><br/>";
 				}
@@ -469,7 +496,45 @@
 				
 			}
 			
+			function downvote(questionID, postID) {
+				//alert("Downvote P:" + postID + " Q:" + questionID);
+				
+				var myParams = new XMLHttpRequest();
+				myParams.open("GET", "OneServlet?cmd="+"downvote"+
+						"&questionID=" + questionID, false);
+				myParams.send();
+				
+				if (myParams.responseText.trim().length != 0)
+					return false;
 			
+				loadPost(postID);
+			}
+			
+			function upvote(questionID, postID) {
+				//alert("Upvote P:" + postID + " Q:" + questionID);
+				
+				var myParams = new XMLHttpRequest();
+				myParams.open("GET", "OneServlet?cmd="+"upvote"+
+						"&questionID=" + questionID, false);
+				myParams.send();
+				
+				if (myParams.responseText.trim().length != 0)
+					return false;
+				
+				loadPost(postID);
+			}
+			
+			
+			
+			function vote(questionID, postID) {
+				if (document.getElementById(("btnUV"+questionID)).innerHTML == "+") {
+					if (!upvote(questionID, postID)) return false;
+					document.getElementById(("btnUV"+questionID)).innerHTML = "-";
+				} else {
+					if (!downvote(questionID, postID)) return false;
+					document.getElementById(("btnUV"+questionID)).innerHTML = "+";
+				}
+			}
 			
 		</script>
 	

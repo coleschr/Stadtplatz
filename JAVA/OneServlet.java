@@ -420,6 +420,70 @@ public class OneServlet extends HttpServlet {
             return;
         }
         
+        // User upvoting question
+        if (command.equals("upvote")) {
+            
+            if (session.getAttribute("userID") == null) {
+                out.println("Please log in to upvote");
+                return;
+            }
+            
+            // Now check with DB
+            DBCommunicator myDB = new DBCommunicator();
+            myDB.connect();
+            
+            int questionID = Integer.parseInt(request.getParameter("questionID"));
+            
+            
+            String error = myDB.upvoteQuestion(questionID, (int)session.getAttribute("userID"));
+            
+            out.println(error);
+            
+            return;
+        }
+        
+        // User downvote question
+        if (command.equals("downvote")) {
+            
+            if (session.getAttribute("userID") == null) {
+                out.println("Please log in to downvote");
+                return;
+            }
+            
+            // Now check with DB
+            DBCommunicator myDB = new DBCommunicator();
+            myDB.connect();
+            
+            int questionID = Integer.parseInt(request.getParameter("questionID"));
+            
+            String error = myDB.downvoteQuestion(questionID, (int)session.getAttribute("userID"));
+            
+            out.println(error);
+            
+            return;
+        }
+        
+        // Check upvote status
+        if (command.equals("checkUpvote")) {
+            
+            if (session.getAttribute("userID") == null) {
+                out.println("Please log in");
+                return;
+            }
+            
+            // Now check with DB
+            DBCommunicator myDB = new DBCommunicator();
+            myDB.connect();
+            
+            int questionID = Integer.parseInt(request.getParameter("questionID"));
+            
+            String msg = myDB.checkUpvoted(questionID, (int)session.getAttribute("userID"));
+            
+            out.println(msg);
+            
+            return;
+        }
+        
     }
     
     

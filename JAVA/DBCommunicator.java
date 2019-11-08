@@ -368,7 +368,6 @@ public class DBCommunicator {
         
         //    //System.out.println ("Trying add class");
         try {
-            // Check if book is already in user's class
             int removeID = -1;
             st = conn.createStatement();
             ps = conn.prepareStatement("SELECT * FROM Enrollment WHERE userID=? AND classID=?");
@@ -393,8 +392,7 @@ public class DBCommunicator {
                 return "";
             }
             
-            // Otherwise, add to favourites
-            //System.out.println("Adding book");
+            
             ps = conn.prepareStatement("INSERT INTO Enrollment (classID, userID) VALUES (?,?)");
             ps.setInt(1, classID);
             ps.setInt(2, userID);
@@ -404,12 +402,12 @@ public class DBCommunicator {
             return "Added";
             
         } catch (SQLException sqle) {
-            //System.out.println ("Code failed favourite book");
+            
             //System.out.println("sqle: " + sqle.getMessage());
         }
         
         
-        //System.out.println ("Finished favourite");
+        
         
         return "";
     }
@@ -418,7 +416,7 @@ public class DBCommunicator {
         
         //    //System.out.println ("Trying add class");
         try {
-            // Check if book is already in user's class
+       
             int removeID = -1;
             st = conn.createStatement();
             ps = conn.prepareStatement("SELECT * FROM Class WHERE classID=?");
@@ -435,12 +433,12 @@ public class DBCommunicator {
             
             
         } catch (SQLException sqle) {
-            //System.out.println ("Code failed favourite book");
+            
             //System.out.println("sqle: " + sqle.getMessage());
         }
         
         
-        //System.out.println ("Finished favourite");
+
         
         return "";
     }
@@ -450,7 +448,7 @@ public class DBCommunicator {
         
         //    //System.out.println ("Trying add class");
         try {
-            // Check if book is already in user's class
+            
             int removeID = -1;
             st = conn.createStatement();
             ps = conn.prepareStatement("SELECT * FROM Enrollment WHERE userID=? AND classID=?");
@@ -464,12 +462,12 @@ public class DBCommunicator {
             
             
         } catch (SQLException sqle) {
-            //System.out.println ("Code failed favourite book");
+            
             //System.out.println("sqle: " + sqle.getMessage());
         }
         
         
-        //System.out.println ("Finished favourite");
+        
         
         return "";
     }
@@ -575,7 +573,7 @@ public class DBCommunicator {
             }
             
             st2 = conn2.createStatement();
-            ps2 = conn2.prepareStatement("SELECT * FROM Response WHERE questionID=? ORDER BY responseID");
+            ps2 = conn2.prepareStatement("SELECT * FROM Response WHERE questionID=? ORDER BY responseID DESC");
             ps2.setInt(1,questionID);
             
             //System.out.println ("Now about to search");
@@ -630,7 +628,7 @@ public class DBCommunicator {
         try {
             // Ask database for classes with userID
             st = conn.createStatement();
-            ps = conn.prepareStatement("SELECT * FROM Question WHERE postID=? ORDER BY numUpvotes, questionID DESC");
+            ps = conn.prepareStatement("SELECT * FROM Question WHERE postID=? ORDER BY numUpvotes DESC, questionID DESC");
             ps.setInt(1,postID);
             
             //System.out.println ("Now about to search");
@@ -756,6 +754,87 @@ public class DBCommunicator {
             
         } catch (SQLException sqle) {
             //System.out.println ("Code failed newPost");
+            //System.out.println("sqle: " + sqle.getMessage());
+        }
+        
+        
+        return "Yikes, thats not good";
+    }
+    
+    public String checkUpvoted(int questionID, int userID) {
+    	
+//      //System.out.println ("Trying check upvote");
+        try {
+            // Check if user upvoted post
+            st = conn.createStatement();
+            ps = conn.prepareStatement("SELECT * FROM Upvote WHERE userID=? AND questionID=?");
+            ps.setInt(1, userID);
+            ps.setInt(2, questionID);
+            //System.out.println("Checking upvote");
+            rs = ps.executeQuery();
+            if (rs.next()) {
+            	//System.out.println("Was upvoted");
+                return "";
+            }
+           // System.out.println("Was not upvoted");
+            return "Not upvoted";
+            
+        } catch (SQLException sqle) {
+            //System.out.println ("Code failed check upvote");
+            //System.out.println("sqle: " + sqle.getMessage());
+        }
+    	
+    	return "";
+    }
+    
+    public String upvoteQuestion(int questionID, int userID) {
+        //System.out.println ("Trying upvote");
+        try {
+            // If not already made, insert into DB
+            ps = conn.prepareStatement("INSERT INTO Upvote (questionID, userID) VALUES (?,?)");
+            ps.setInt(1, questionID);     
+            ps.setInt(2, userID);
+            //System.out.println ("Executing update");
+            int row = ps.executeUpdate();
+            
+            //System.out.println ("Updating numUpvotes +1");
+			ps = conn.prepareStatement("UPDATE Question SET numUpvotes = numUpvotes + 1 WHERE questionID=?");
+			ps.setInt(1, questionID);
+			row = ps.executeUpdate();
+			//System.out.println ("Done update +1 numUpdates");
+            
+            return "";
+            
+        } catch (SQLException sqle) {
+            //System.out.println ("Code failed upvote");
+            //System.out.println("sqle: " + sqle.getMessage());
+        }
+        
+        
+        return "Yikes, thats not good";
+    }
+    
+    public String downvoteQuestion(int questionID, int userID) {
+        //System.out.println ("Trying down");
+        try {
+            // If not already made, insert into DB
+            ps = conn.prepareStatement("DELETE FROM Upvote WHERE questionID=? AND userID=?");
+            ps.setInt(1, questionID);     
+            ps.setInt(2, userID);
+            //System.out.println ("Executing update -1");
+            int row = ps.executeUpdate();
+            
+            
+            //System.out.println ("Updating numUpvotes -1");
+			ps = conn.prepareStatement("UPDATE Question SET numUpvotes = numUpvotes - 1 WHERE questionID=?");
+			ps.setInt(1, questionID);
+			row = ps.executeUpdate();
+			//System.out.println ("Done update -1 numUpdates");
+            
+            return "";
+            
+        } catch (SQLException sqle) {
+            //System.out.println ("Code failed upvote");
             //System.out.println("sqle: " + sqle.getMessage());
         }
         
