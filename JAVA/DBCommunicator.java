@@ -19,8 +19,8 @@ public class DBCommunicator {
     public void connect() {
         //System.out.println ("Trying to connect");
         try {
-            String url = "jdbc:mysql://google/Stadtplatz?cloudSqlInstance=stadtzplatz:us-west1:sql-db-1&socketFactory=com.google.cloud.sql.mysql.SocketFactory&useSSL=false&user=grujic&password=wow";
             // String url = "jdbc:mysql://google/Stadtplatz?cloudSqlInstance=lab7-255416:us-central1:sql-db-1&socketFactory=com.google.cloud.sql.mysql.SocketFactory&useSSL=false&user=sjburton&password=wow";
+            String url = "jdbc:mysql://google/Stadtplatz?cloudSqlInstance=stadtzplatz:us-west1:sql-db-1&socketFactory=com.google.cloud.sql.mysql.SocketFactory&useSSL=false&user=grujic&password=wow";
             conn = DriverManager.getConnection(url);
         } catch (SQLException sqle) {
             //System.out.println ("Code failed connect");
@@ -566,8 +566,8 @@ public class DBCommunicator {
             ResultSet rs2 = null;
 
             try {
-                String url = "jdbc:mysql://google/Stadtplatz?cloudSqlInstance=stadtzplatz:us-west1:sql-db-1&socketFactory=com.google.cloud.sql.mysql.SocketFactory&useSSL=false&user=grujic&password=wow";
                 // String url = "jdbc:mysql://google/Stadtplatz?cloudSqlInstance=lab7-255416:us-central1:sql-db-1&socketFactory=com.google.cloud.sql.mysql.SocketFactory&useSSL=false&user=sjburton&password=wow";
+                String url = "jdbc:mysql://google/Stadtplatz?cloudSqlInstance=stadtzplatz:us-west1:sql-db-1&socketFactory=com.google.cloud.sql.mysql.SocketFactory&useSSL=false&user=grujic&password=wow";
                 conn2 = DriverManager.getConnection(url);
             } catch (SQLException sqle) {
                 //System.out.println ("Code failed connect");
