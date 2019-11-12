@@ -44,22 +44,19 @@
 	
 		<div id="HomeBar" class="homeBarDiv">
 			<br/>
-			<a id="titleText" class="titleText" href="HomePage.jsp">Stadtplatz</a>
+			<a id="titleText" class="titleText" href="HomePage.jsp"><img src="assets/logo.png"/>Stadtplatz</a>
 			
 			<br/><br/>
 		</div>
 		
 		
 		
-		<div id="loginForm" style="margin-left:50px;margin-right:50px;">
-			<br/>
+		<div id="loginForm" class="loginForm">
 			<form name="loginForm" onsubmit="return tryLogin()" action="HomePage.jsp">
-				Username
-				<input name="username" type="text" placeholder="Username"><br/><br/>
-				Password
-				<input name="password" type="password" placeholder="Password">
-				<br/>
-				<input name="registerButton" type="submit" value="Login">
+				<input class="input" name="username" type="text" placeholder="Username"><br/><br/>
+				<input class="input" name="password" type="password" placeholder="Password">
+				<br/><br/>
+				<input class="submitLoginButton" name="registerButton" type="submit" value="Login">
 				<br/>
 			</form>
 			
