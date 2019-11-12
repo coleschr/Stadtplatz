@@ -8,56 +8,7 @@
 		</title>
 		
 		
-		<style>
-			.homeBarDiv {
-				background-color: green;
-			}
-			.titleText {
-				text-decoration: none;
-				color: white;
-				float:left;
-				margin-left:50px;
-			}
-			.classPicker {
-				float: left;
-				margin-left:50px;
-			}
-			.loginButton {
-				text-decoration: none;
-				color: white;
-				float:right;
-				margin-right:50px;
-			}
-			.registerButton {
-				text-decoration: none;
-				color: white;
-				float:right;
-				margin-right:50px;
-			}
-			.classSearch {
-				background-color: white;
-			}
-			.classTitle {
-				font-weight: bold;
-				text-decoration: none;
-				color:gray;
-				font: 30px Ariel;
-				
-			}
-			.className {
-				color:gray;
-				font: 30px Ariel;
-			}
-			.classDescription {
-				color:gray;
-				margin-left:50px;
-				color:gray;
-			}
-			.classAddButton {
-				margin-left:50px;
-			}
-			
-		</style>
+		<link rel="stylesheet" type="text/css" href="style.css"/>
 		
 		<script>
 		
@@ -189,7 +140,6 @@
 			    return params;
 			 }
 			
-
 			function loadClassList() {
 				
 				//alert("loadClassList()");
