@@ -1,0 +1,161 @@
+/* All Pages --------------------------------- */
+body {
+	background-color: #1bca9b;
+	padding: 0;
+	font-family: "Arial";
+}
+
+.homeBarDiv {
+	background-color: #1bca9b;
+}
+
+.titleText {
+	text-decoration: none;
+	color: white;
+	float:left;
+	margin-left:50px;
+}
+
+.classPicker {
+	float: left;
+	margin-left:50px;
+}
+
+.loginButton {
+	text-decoration: none;
+	color: white;
+	float:right;
+	margin-right:50px;
+}
+
+.registerButton {
+	text-decoration: none;
+	color: white;
+	float:right;
+	margin-right:50px;
+}
+
+
+/* HomePage only --------------------------------- */
+.homeScreenDiv {
+	color: white;
+	text-align: center;
+}
+
+.homeScreenDiv img {
+	width: 25%;
+	padding-left: 4%;
+}
+
+.homeScreenDiv h1 {
+	font-size: 50px;
+}
+
+.searchText {
+	color: white;
+	background-color: transparent;
+	outline: 0;
+  	border-width: 0 0 2px;
+  	border-color: white;
+  	width: 90%;
+  	padding-bottom: 3px;
+  	font-size: 20px;
+}
+
+.searchText::placeholder {
+	color: white;
+}
+
+.searchButton {
+	padding: 5px;
+	background-image: url(assets/search.png);
+	background-color: transparent;
+	background-repeat: no-repeat;
+	background-size: 80% 80%;
+	background-position: center;
+	border-color: transparent;
+}
+
+.classSearch {
+	display:block;
+	width: 50%;
+	min-width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.classResult {
+	border: 1px solid white;
+	border-radius: 4px;
+	padding-top: 20px;
+	margin-bottom: 5px;
+}
+
+.classSearch a {
+	text-decoration: none;
+}
+
+.classSearch a:hover .classResult{
+	background-color: #fff2;
+}
+
+.classTitle {
+	font-weight: bold;
+	color: white;
+	margin-left:25px;
+}
+
+.classDescription {
+	margin-left:50px;
+	color: white;
+	margin-top: 5px;
+	font-weight: normal;
+}
+
+.classAddButton {
+	width: 22px;
+	height: 22px;
+	margin-right: 20px;
+	float: right;
+	padding: 5px;
+	background-image: url(assets/add.png);
+	background-color: transparent;
+	background-repeat: no-repeat;
+	background-size: 80% 80%;
+	background-position: center;
+	border-color: transparent;
+}
+
+.classAddButton:hover {
+	background-image: url(assets/add_black.png);
+}
+
+.classAddButton:focus {
+  outline: none;
+}
+
+.classRemoveButton {
+	width: 20px;
+	height: 20px;
+	margin-right: 21px;
+	float: right;
+	padding: 5px;
+	background-image: url(assets/remove.png);
+	background-color: transparent;
+	background-repeat: no-repeat;
+	background-size: 80% 80%;
+	background-position: center;
+	border-color: transparent;
+}
+
+.classRemoveButton:hover {
+	background-image: url(assets/remove_black.png);
+}
+
+.classRemoveButton:focus {
+  outline: none;
+}
+
+.className {
+	color: white;
+}
