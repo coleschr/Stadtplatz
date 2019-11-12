@@ -14,6 +14,14 @@ body {
 	color: white;
 	float:left;
 	margin-left:50px;
+	height: 50px;
+	display: flex;
+	align-items:center;
+}
+
+.titleText img {
+	height: 100%;
+	padding-bottom: 20%;
 }
 
 .classPicker {
@@ -36,7 +44,7 @@ body {
 }
 
 
-/* HomePage only --------------------------------- */
+/* HomePage --------------------------------- */
 .homeScreenDiv {
 	color: white;
 	text-align: center;
@@ -57,7 +65,7 @@ body {
 	outline: 0;
   	border-width: 0 0 2px;
   	border-color: white;
-  	width: 90%;
+  	width: 93%;
   	padding-bottom: 3px;
   	font-size: 20px;
 }
@@ -74,6 +82,11 @@ body {
 	background-size: 80% 80%;
 	background-position: center;
 	border-color: transparent;
+	float: right;
+}
+
+.searchButton:focus {
+  outline: none;
 }
 
 .classSearch {
@@ -158,4 +171,39 @@ body {
 
 .className {
 	color: white;
+}
+
+/* LoginPage + RegisterPage --------------------------------- */
+.loginForm {
+	margin-top: 40px;
+	color: black;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 250px;
+	text-align: center;
+}
+
+.loginForm form {
+	width: 100%;
+}
+
+.loginForm .input {
+	width: 100%;
+	font-size: 20px;
+	border-radius: 3px;
+	border-width: 0;
+	padding: 5px;
+	box-sizing: border-box;
+}
+
+.submitLoginButton {
+	width: 100%;
+	font-size: 20px;
+	background-color: #00695C;
+	color: white;
+	padding: 5px;
+	border-width: 0;
+	border-radius: 3px;
+	margin-bottom: 5px;
 }
