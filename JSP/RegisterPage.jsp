@@ -49,28 +49,21 @@
 	
 		<div id="HomeBar" class="homeBarDiv">
 			<br/>
-			<a id="titleText" class="titleText" href="HomePage.jsp">Stadtplatz</a>
+			<a id="titleText" class="titleText" href="HomePage.jsp"><img src="assets/logo.png"/>Stadtplatz</a>
 			
 			<br/><br/>
 		</div>
 		
 		
 		
-		<div id="loginForm" style="margin-left:50px;margin-right:50px;">
-			<br/>
+		<div id="loginForm" class="loginForm">
 			<form name="registerForm" onsubmit="return tryRegister()" action="HomePage.jsp">
-				Username
-				<input name="username" type="text" placeholder="Username"><br/><br/>
-				First Name
-				<input name="firstName" type="text" placeholder="First Name"><br/><br/>
-				Last Name
-				<input name="lastName" type="text" placeholder="Last Name"><br/><br/>
-				Password
-				<input name="password" type="password" placeholder="Password"><br/><br/>
-				Confirm Password
-				<input name="confirmPassword" type="password" placeholder="Password Again">
-				<br/>
-				<input name="registerButton" type="submit" value="Resigter">
+				<input class="input" name="username" type="text" placeholder="Username"><br/><br/>
+				<input class="input" name="firstName" type="text" placeholder="First Name"><br/><br/>
+				<input class="input" name="lastName" type="text" placeholder="Last Name"><br/><br/>
+				<input class="input" name="password" type="password" placeholder="Password"><br/><br/>
+				<input class="input" name="confirmPassword" type="password" placeholder="Confirm Password"><br/><br/>
+				<input class="submitLoginButton" name="registerButton" type="submit" value="Resigter">
 				<br/>
 			</form>
 			
@@ -83,5 +76,4 @@
 		
 	</body>
 	
-</html>y>
 </html>
