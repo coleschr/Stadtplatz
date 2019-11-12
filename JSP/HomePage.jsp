@@ -8,54 +8,7 @@
 		</title>
 		
 		
-		<style>
-			.homeBarDiv {
-				background-color: green;
-			}
-			.titleText {
-				text-decoration: none;
-				color: white;
-				float:left;
-				margin-left:50px;
-			}
-			.classPicker {
-				float: left;
-				margin-left:50px;
-			}
-			.loginButton {
-				text-decoration: none;
-				color: white;
-				float:right;
-				margin-right:50px;
-			}
-			.registerButton {
-				text-decoration: none;
-				color: white;
-				float:right;
-				margin-right:50px;
-			}
-			.classSearch {
-				background-color: white;
-			}
-			.classTitle {
-				font-weight: bold;
-				text-decoration: none;
-				color:gray;
-				margin-left:25px;
-			}
-			.className {
-				color:gray;
-			}
-			.classDescription {
-				color:gray;
-				margin-left:50px;
-				color:gray;
-			}
-			.classAddButton {
-				margin-left:50px;
-			}
-			
-		</style>
+		<link rel="stylesheet" type="text/css" href="style.css"/>
 		
 		<script>
 		
@@ -65,6 +18,10 @@
 				if (choice.length == 0)
 					return;
 				//alert("Chose: " + choice);
+				window.location.href = "PostsPage.jsp?classID=" + choice;
+			}
+			
+			function selectClass(choice) {
 				window.location.href = "PostsPage.jsp?classID=" + choice;
 			}
 			
@@ -151,18 +108,16 @@
 				myParams.send();
 				
 				if (myParams.responseText.trim().length == 0) {
-					document.getElementById("addButton"+classID).innerHTML = "+";
+					document.getElementById("addButton"+classID).className = "classAddButton";
 				}
 				else {
-					document.getElementById("addButton"+classID).innerHTML = "-";
+					document.getElementById("addButton"+classID).className = "classRemoveButton";
 				}
 				
 				
 				loadClassPicker();
-				
 			}
 			
-
 			function loadClassList() {
 				
 				//alert("loadClassList()");
@@ -204,7 +159,7 @@
 				var newHTML = "";
 				
 				for (var i = 0; i < numResults; i++) {
-					newHTML += "<a class=\"classTitle\" href=\"PostsPage.jsp?classID=" + classData["classes"][i]["id"] + "\">" + classData["classes"][i]["code"] + "</a>";
+					newHTML += "<a onclick=\"selectClass('" + classData["classes"][i]["id"] + "')\"><div class=\"classResult\"><b class=\"classTitle\">" + classData["classes"][i]["code"] + "</b>";
 					newHTML += "<b class=\"className\"> -- " + classData["classes"][i]["name"] + "";
 					
 					var enrolled = false;
@@ -219,11 +174,11 @@
 					
 					if (userName.length != 0)
 						if (!enrolled)
-							newHTML += "<button id=\"addButton" + classData["classes"][i]["id"] + "\" onclick =\"addClass(" + classData["classes"][i]["id"] + ")\" class=\"classAddButton\"> + </button>";
+							newHTML += "<button id=\"addButton" + classData["classes"][i]["id"] + "\" onclick =\"addClass(" + classData["classes"][i]["id"] + ");event.stopPropagation()\" class=\"classAddButton\">   </button>";
 						else
-							newHTML += "<button id=\"addButton" + classData["classes"][i]["id"] + "\" onclick =\"addClass(" + classData["classes"][i]["id"] + ")\" class=\"classAddButton\"> - </button>";
+							newHTML += "<button id=\"addButton" + classData["classes"][i]["id"] + "\" onclick =\"addClass(" + classData["classes"][i]["id"] + ");event.stopPropagation()\" class=\"classRemoveButton\">   </button>";
 						
-					newHTML += "</br><b class=\"classDescription\">" + classData["classes"][i]["description"] + "</b></br></br>";
+					newHTML += "<p class=\"classDescription\">" + classData["classes"][i]["description"] + "</p></div></a>";
 				}
 				
 				document.getElementById("searchResults").innerHTML = newHTML;
@@ -232,8 +187,6 @@
 				return false;
 				
 			}
-			
-			
 			
 			function loadPage() {
 				//alert("loadPage()");
@@ -250,7 +203,6 @@
 	
 		<div id="HomeBar" class="homeBarDiv">
 			<br/>
-			<a id="titleText" class="titleText" href="HomePage.jsp">Stadtplatz</a>
 			
 			<form name="classPicker" class="classPicker" id="classPicker">
 				<select id="classPickerSelect" name="classChoice" onchange="selectClass()">
@@ -266,18 +218,20 @@
 			<br/><br/>
 		</div>
 		
+		<div class="homeScreenDiv">
+			<img src="assets/logo.png"/>
+			<h1>Stadtplatz</h1>
+		</div>
 		
-		
-		<div id="classSearch" style="margin-left:50px;margin-right:50px;">
+		<div id="classSearch" class="classSearch">
 			<br/>
 			<form name="searchBar" onsubmit="return loadClassList()">
-				<input name="searchText" type="text" placeholder="Class code">
-				<input name="searchButton" type="submit" value="Search">
+				<input class="searchText" name="searchText" type="text" placeholder="Class code">
+				<input class="searchButton" name="searchButton" type="submit" value="     ">
 			</form>
-			<br/>
 			<b id="searchErrorMessage" style="color:red;"></b>
 			<br/>
-			<div id="searchResults" style="background-color:white;">
+			<div id="searchResults">
 				
 			</div>
 		</div>
