@@ -1,11 +1,15 @@
 /* All Pages --------------------------------- */
+
 body {
 	background-color: #1bca9b;
 	padding: 0;
+	padding-top:20px;
 	font-family: "Arial";
 }
 
 .homeBarDiv {
+	padding-top:3vh;
+	padding-bottom:3vh;
 	background-color: #1bca9b;
 }
 
@@ -13,12 +17,14 @@ body {
 	text-decoration: none;
 	color: white;
 	float:left;
+	font-weight:bold;
 	margin-left:50px;
 	height: 50px;
 	display: flex;
 	align-items:center;
 }
 
+/*logo*/
 .titleText img {
 	height: 100%;
 	padding-bottom: 20%;
@@ -27,20 +33,19 @@ body {
 .classPicker {
 	float: left;
 	margin-left:50px;
+	padding:16px;
 }
 
-.loginButton {
+.loginButton, .registerButton, 
+.welcomeText, .signOutButton{
 	text-decoration: none;
 	color: white;
 	float:right;
 	margin-right:50px;
+	margin-top:20px;
 }
-
-.registerButton {
-	text-decoration: none;
-	color: white;
-	float:right;
-	margin-right:50px;
+.loginButton:hover,.registerButton:hover  {
+    text-decoration: underline;
 }
 
 
@@ -59,6 +64,10 @@ body {
 	font-size: 50px;
 }
 
+#searchErrorMessage{
+	padding-top:10px;
+	margin-top:10px;
+}
 .searchText {
 	color: white;
 	background-color: transparent;
@@ -173,16 +182,21 @@ body {
 	color: white;
 }
 
-/* LoginPage + RegisterPage --------------------------------- */
+/* LoginPage + RegisterPage --------------------------------- 
+11/14: replaced gross logo, adjusted sizes to make new logo look balanced*/
 .loginForm {
+	padding: 120px 50px 120px 50px;
 	margin-top: 40px;
 	color: black;
-	display: block;
+	/*border: 2px solid #00695C;*/
+	border-radius:5px;
+	display: block;	
 	margin-left: auto;
 	margin-right: auto;
 	width: 250px;
 	text-align: center;
 }
+
 
 .loginForm form {
 	width: 100%;
@@ -193,17 +207,35 @@ body {
 	font-size: 20px;
 	border-radius: 3px;
 	border-width: 0;
+	border: 1px solid #aaa;
 	padding: 5px;
 	box-sizing: border-box;
 }
 
+/*includes button << registerpage as well*/
 .submitLoginButton {
 	width: 100%;
 	font-size: 20px;
+	box-shadow: 1px 1px #000;
 	background-color: #00695C;
 	color: white;
 	padding: 5px;
 	border-width: 0;
 	border-radius: 3px;
 	margin-bottom: 5px;
+}
+/*Posts Page -----------------------------------*/
+body { 
+	margin:0; 
+	padding:0; 
+	box-sizing:border-box; 
+}
+
+#assignmentstList{
+	background-color: grey; 
+	width:25%; 
+	padding-left:2%; 
+	float:left; 
+	border:1px solid gray; 
+	/*border-radius:5px;*/
 }
