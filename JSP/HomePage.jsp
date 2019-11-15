@@ -11,17 +11,27 @@
 		<link rel="stylesheet" type="text/css" href="style.css"/>
 		
 		<script>
-		
+			 //for use in PostsPage -> determine default welcome text in main stage.
+			sessionStorage.setItem("classChosen", "0");
+			sessionStorage.setItem("selected","null"); //for posts page.
+			 //not actually called when you choose a class...
 			function selectClass() {
-				//alert("selectClass()");
+				
 				var choice = document.classPicker.classChoice.value;
+				
 				if (choice.length == 0)
 					return;
-				//alert("Chose: " + choice);
+				alert("Chose: " + choice);
 				window.location.href = "PostsPage.jsp?classID=" + choice;
 			}
 			
-			function selectClass(choice) {
+			
+			/*
+				Added so clicking + desn't also try to activate the div's href anchor
+			*/
+			function openClass(choice) {
+				sessionStorage.setItem("classChosen", "1");
+				alert("openClass(choice)");
 				window.location.href = "PostsPage.jsp?classID=" + choice;
 			}
 			
@@ -114,7 +124,6 @@
 					document.getElementById("addButton"+classID).className = "classRemoveButton";
 				}
 				
-				
 				loadClassPicker();
 			}
 			
@@ -159,7 +168,7 @@
 				var newHTML = "";
 				
 				for (var i = 0; i < numResults; i++) {
-					newHTML += "<a onclick=\"selectClass('" + classData["classes"][i]["id"] + "')\"><div class=\"classResult\"><b class=\"classTitle\">" + classData["classes"][i]["code"] + "</b>";
+					newHTML += "<a onclick=\"openClass('" + classData["classes"][i]["id"] + "')\"><div class=\"classResult\"><b class=\"classTitle\">" + classData["classes"][i]["code"] + "</b>";
 					newHTML += "<b class=\"className\"> -- " + classData["classes"][i]["name"] + "";
 					
 					var enrolled = false;
