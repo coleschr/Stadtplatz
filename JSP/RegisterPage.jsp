@@ -63,7 +63,7 @@
 				<input class="input" name="lastName" type="text" placeholder="Last Name"><br/><br/>
 				<input class="input" name="password" type="password" placeholder="Password"><br/><br/>
 				<input class="input" name="confirmPassword" type="password" placeholder="Confirm Password"><br/><br/>
-				<input class="submitLoginButton" name="registerButton" type="submit" value="Resigter">
+				<input class="submitLoginButton" name="registerButton" type="submit" value="Register">
 				<br/>
 			</form>
 			
