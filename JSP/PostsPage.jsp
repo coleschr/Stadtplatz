@@ -4,20 +4,22 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Stadtplatz Posts
-		</title>
+		<title>Stadtplatz Posts</title>
 		
 		
 		<link rel="stylesheet" type="text/css" href="style.css"/>
-		
+		<script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"> </script>
 		<script>
 		
+		sessionStorage.setItem("currCode","Pick Class");
 			function selectClass() {
+				sessionStorage.setItem("classChosen", "1");
 				//alert("selectClass()");
 				var choice = document.classPicker.classChoice.value;
 				if (choice.length == 0)
 					return;
 				//alert("Chose: " + choice);
+				//alert($("#classPicker").val()); 
 				window.location.href = "PostsPage.jsp?classID=" + choice;
 			}
 			
@@ -100,8 +102,10 @@
 				if (classData["num"] != undefined)
 					numClasses = classData["num"];
 				
+				var currCode = sessionStorage.getItem("currCode");
 				
-				var newHTML = "<option value=\"\" selected>Pick Class</option>";
+				//BC CHANGED! TODO: session var holding current code.
+				var newHTML = "<option value=\"\" selected>"+currCode+"</option>";
 				
 				for (var i = 0; i < numClasses; i++) {
 					
@@ -118,11 +122,11 @@
 				myParams.send();
 				
 				if (myParams.responseText.trim().length == 0) {
-					document.getElementById("addButton"+classID).innerHTML = "+";
+					//document.getElementById("addButton"+classID).innerHTML = "+";
 					document.getElementById("newButton").innerHTML = "";
 				}
 				else {
-					document.getElementById("addButton"+classID).innerHTML = "-";
+					//document.getElementById("addButton"+classID).innerHTML = "-";
 					document.getElementById("newButton").innerHTML = "<button onclick=\"loadNewPost()\">New</button>";
 				}
 				
@@ -179,9 +183,9 @@
 				
 				var newHTML = "";
 				var i = 0;
-				newHTML += "<a class=\"classTitle\" href=\"PostsPage.jsp?classID=" + classData["classes"][i]["id"] + "\">" + classData["classes"][i]["code"] + "</a>";
+				newHTML += "<a class=\"classTitle\" >" + classData["classes"][i]["code"] + "</a>";
 				newHTML += "<b class=\"className\"> -- " + classData["classes"][i]["name"] + "";
-				
+				document.getElementById("classPickerSelect").SelectedValue = classData["classes"][i]["code"];
 				
 				var theseParams = new XMLHttpRequest();
 				theseParams.open("GET", "OneServlet?cmd="+"checkClass" + "&classID=" + classData["classes"][i]["id"], false);
@@ -194,11 +198,13 @@
 				if (userName.length != 0) {
 					if (enrolled.length == 0) {
 						newHTML += "<button id=\"addButton" + classData["classes"][i]["id"] + "\" onclick =\"addClass(" + classData["classes"][i]["id"] + ")\" class=\"classAddButton\"> + </button>";
-						document.getElementById("newButton").innerHTML = "";
+						//CHNAGED FOR BUTTON STYLIZING
+						//document.getElementById("newButton").innerHTML = "";
+						document.getElementById("newButton").style.visibility = "hidden";
 					}
 					else {
 						newHTML += "<button id=\"addButton" + classData["classes"][i]["id"] + "\" onclick =\"addClass(" + classData["classes"][i]["id"] + ")\" class=\"classAddButton\"> - </button>";
-						document.getElementById("newButton").innerHTML = "<button onclick=\"loadNewPost()\">New</button>";
+						document.getElementById("newButton").style.visibility = "visible";//"<button onclick=\"loadNewPost()\">New</button>";
 					}
 				}
 				else {
@@ -265,11 +271,24 @@
 				
 			}
 			
-			
+			/*
+				Loads posts based on the type, which can be "" (for Assignments) or "Exams".
+			*/
 			function loadPosts(type) {
 				//alert("Load posts " + type);
-				var searchFor = parseSearchParams()["classID"];
 				
+				//logic for lightening the currently selected button
+				if(type.length != 0){
+					//alert("E");
+					sessionStorage.setItem("selected","e");
+					
+				}else{ 
+					//alert("A");
+					sessionStorage.setItem("selected","a");
+				}
+				
+				var searchFor = parseSearchParams()["classID"];
+					
 				var myParams = new XMLHttpRequest();
 				if (type.length == 0)
 					myParams.open("GET", "OneServlet?cmd="+"getAssignments" + "&classID="+searchFor, false);
@@ -286,11 +305,18 @@
 				if (postData["num"] != undefined)
 					numResults = postData["num"];
 				
+				/* hopefully we can make the button color the category, eventually*/
 				var newHTML = "<b>Assignments</b><br/><br/>";
 				if (type.length != 0) {
 					newHTML = "<b>Exams</b><br/><br/>";
 				}
-				
+				//^^^ Added for this functionality
+				/*I gave up... 
+				sessionStorage.setItem("category","a");
+				if (type.length != 0) {
+					sessionStorage.setItem("category","e");
+				}
+				*/
 				for (var i = 0; i < numResults; i++) {
 					newHTML += "<a onclick=\"loadPost(" + postData["classes"][i]["id"] + ")\">" + postData["classes"][i]["title"] + "</a></br></br>";
 					//newHTML += "<a>" + postData["classes"][i]["description"] + "</a></br></br>";
@@ -474,8 +500,6 @@
 				loadPost(postID);
 			}
 			
-			
-			
 			function vote(questionID, postID) {
 				if (document.getElementById(("btnUV"+questionID)).innerHTML == "+") {
 					if (!upvote(questionID, postID)) return false;
@@ -486,16 +510,31 @@
 				}
 			}
 			
+			/*
+				Determines default greeting message to display on main stage 
+			*/
+			$(document).ready(function() { 
+				//alert("doc on ready:");
+				var chosen = sessionStorage.getItem("classChosen")
+				if(chosen == "1"){
+					document.getElementById("msGreeting").innerHTML = "Select conversations by topic on the left!"
+				}else{
+					document.getElementById("msGreeting").innerHTML = "Choose a class to get started.";
+				}
+				
+			});
+			
+			
 		</script>
 	
 	</head>
 	
-	<body onload="loadPage()">
+	<body style="background:#eee;" onload="loadPage()">
 	
-	
-		<div id="HomeBar" class="homeBarDiv">
+		<div id="sneakyDiv" style="height:130px;"></div>
+		<div id="HomeBar" style="box-shadow: 2px 2px 2px 2px #aaa; position: fixed; top: 0; width:100%;" class="homeBarDiv">
 			<br/>
-			<a id="titleText" class="titleText" href="HomePage.jsp">Stadtplatz</a>
+			<a id="titleText" class="titleText" href="HomePage.jsp"><img src="assets/logo.png"/>Stadtplatz</a>
 			
 			<form name="classPicker" class="classPicker" id="classPicker">
 				<select id="classPickerSelect" name="classChoice" onchange="selectClass()">
@@ -511,25 +550,25 @@
 			
 			<br/><br/>
 		</div>
-		
 		<br/><br/>
 		
 		
 		<div>
-			<div style="background-color: white; width:25%; padding-left:2%; float:left; border:1px solid gray; border-radius:5px;" id="assignmentstList">
+			<div id="assignmentstList">
 				<br/>
-				<button onclick="loadAssignments()">Assignments</button>
-				<button onclick="loadExams()">Exams</button>
-				<div style="float:right; margin-right:20%;" id="newButton"></div>
+				<button class="category" id ="aButton"onclick="loadAssignments()">Assignments</button>
+				<button class="category" id ="eButton" onclick="loadExams()">Exams</button>
+				
 				<br/><br/>
 				<div id="postsList">
 					
 				</div>
 				<br/><br/><br/>
+				<div class="categoryNew" onclick="loadNewPost()" style="float:right; margin-right:10%;" id="newButton">New</div>
 			</div>
-			<div style="margin-left:5%; width:60%; float:left;" id="classDescription"></div>
-			<div style="margin-left:7.5%; width:50%; float:left;" id="postsSection">
-				<a>Choose a post on the left to start!</a>
+			<div style="margin-left:25%; width:60%; float:left;" id="classDescription"></div>
+			<div style="margin-left:38%; width:50%; float:left;" id="postsSection">
+				<a id="msGreeting"></a>
 			</div>
 			
 		</div>
