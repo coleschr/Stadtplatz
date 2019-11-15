@@ -1,5 +1,6 @@
 /* All Pages --------------------------------- */
 
+
 body {
 	background-color: #1bca9b;
 	padding: 0;
@@ -7,7 +8,7 @@ body {
 	font-family: "Arial";
 }
 
-.homeBarDiv {
+.homeBarDiv{
 	padding-top:3vh;
 	padding-bottom:3vh;
 	background-color: #1bca9b;
@@ -121,12 +122,9 @@ body {
 	background-color: #fff2;
 }
 
-.classTitle {
-	font-weight: bold;
-	color: white;
-	margin-left:25px;
-}
-
+/*TODO: if we keep this on PostsPage, must be inline style 
+because it also exists on home page :(. May not need to if 
+we should just put class title in the dropdown menu */
 .classDescription {
 	margin-left:50px;
 	color: white;
@@ -177,9 +175,14 @@ body {
 .classRemoveButton:focus {
   outline: none;
 }
-
 .className {
 	color: white;
+	font-weight:bold;
+}
+.classTitle{
+	padding-left:25px;
+	color: white;
+	font-weight:bold;
 }
 
 /* LoginPage + RegisterPage --------------------------------- 
@@ -231,11 +234,55 @@ body {
 	box-sizing:border-box; 
 }
 
-#assignmentstList{
-	background-color: grey; 
-	width:25%; 
-	padding-left:2%; 
-	float:left; 
+#assignmentstList, #sneakyLeftDiv{
+	width:20%; 
+	padding-left:1vw; 
+	position: fixed;
+	top:126px;
+	border-right: double;
+	left:0;
+	height:90vh;
+	/*float:left; 
 	border:1px solid gray; 
-	/*border-radius:5px;*/
+	height: 80vw;
+	border-radius:5px;*/
 }
+
+/*category and categoryNew are the left-bar buttons*/
+.category{
+	background:transparent;
+	border-radius:20px;
+	border: 1px solid #666;
+	padding: 8px 12px;
+	color:#666;
+}
+
+.category:hover{
+	background:white;
+	box-shadow: 1px 1px #aaa;
+}
+
+#postsList{
+	margin-left:1vw;
+	padding-left:1vw;
+}
+
+/*Actually a div which functions as a button*/
+#newButton{
+	position: fixed;
+	width:18%;
+	bottom:10px;
+	text-align:center;
+	font-weight:new;
+	background:transparent;
+	border-radius:5px;
+	border: 3px solid #53e0bc;
+	padding: 8px;
+	color:#53e0bc;
+}
+#newButton:hover{
+	background:#53e0bc;
+	color:white;
+	box-shadow: 1px 1px #aaa;
+}
+
