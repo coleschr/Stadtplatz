@@ -21,7 +21,6 @@
 				
 				if (choice.length == 0)
 					return;
-				alert("Chose: " + choice);
 				window.location.href = "PostsPage.jsp?classID=" + choice;
 			}
 			
