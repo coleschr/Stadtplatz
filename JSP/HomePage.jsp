@@ -4,12 +4,10 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Stadtplatz Home
-		</title>
+		<title>Stadtplatz Home</title>
 		
 		
 		<link rel="stylesheet" type="text/css" href="style.css"/>
-		
 		<script>
 			 //for use in PostsPage -> determine default welcome text in main stage.
 			sessionStorage.setItem("classChosen", "0");
@@ -72,7 +70,7 @@
 					
 					document.getElementById("welcomeText").innerHTML = "Hello, " + userName;
 					document.getElementById("signOutButton").innerHTML = "Sign Out";
-					document.getElementById("classPicker").innerHTML = "<select id=\"classPickerSelect\" style=\" background-color: #1bca9b; border:1px solid white; font-size: 16px; padding: 2px 5px; border-radius: 3px; width:250px; color: white; border-width:1px; \"name=\"classChoice\" onchange=\"selectClass()\"></select>";
+					document.getElementById("classPicker").innerHTML = "<select id=\"classPickerSelect\" name=\"classChoice\" onchange=\"selectClass()\"></select>";
 					loadClassPicker();
 				}	
 				loadClassList();
