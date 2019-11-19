@@ -1,5 +1,12 @@
 /* All Pages --------------------------------- */
 
+div:focus {
+  outline: none;
+}
+
+button:focus {
+  outline: none;
+}
 
 body {
 	background-color: #1bca9b;
@@ -172,9 +179,6 @@ we should just put class title in the dropdown menu */
 	background-image: url(assets/remove2.png);
 }
 
-.classRemoveButton:focus {
-  outline: none;
-}
 .className {
 	color: white;
 	font-weight:bold;
@@ -237,6 +241,7 @@ we should just put class title in the dropdown menu */
 }
 
 /*Posts Page -----------------------------------*/
+/*Posts Page: Sidebar */
 body { 
 	margin:0; 
 	padding:0; 
@@ -246,11 +251,13 @@ body {
 #assignmentstList, #sneakyLeftDiv{
 	width:20%; 
 	padding-left:1vw; 
+	padding-right:1vw; 
 	position: fixed;
-	top:126px;
+	top:115px;
 	border-right: double;
 	left:0;
 	height:90vh;
+	overflow: scroll;
 	/*float:left; 
 	border:1px solid gray; 
 	height: 80vw;
@@ -260,7 +267,7 @@ body {
 /*category and categoryNew are the left-bar buttons*/
 .category{
 	background:transparent;
-	border-radius:20px;
+	border-radius:5px;
 	border: 1px solid #666;
 	padding: 8px 12px;
 	color:#666;
@@ -269,6 +276,23 @@ body {
 .category:hover{
 	background:white;
 	box-shadow: 1px 1px #aaa;
+}
+
+.category:active{
+	box-shadow: -1px -1px #aaa;
+}
+
+#abutton {
+	min-width: 200px;
+	background-color:red;
+}
+
+#ebutton {
+	
+}
+
+#obutton {
+	
 }
 
 #postsList{
@@ -289,17 +313,17 @@ body {
 	padding: 8px;
 	color:#53e0bc;
 }
+
 #newButton:hover{
 	background:#53e0bc;
 	color:white;
 	box-shadow: 1px 1px #aaa;
 }
 
+#newButton:active{
+	box-shadow: -1px -1px #aaa;
+}
 
-
-
-
-
-
+/*Posts Page: Post View*/
 
 
