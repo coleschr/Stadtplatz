@@ -8,6 +8,16 @@ button:focus {
   outline: none;
 }
 
+#classPickerSelect{
+	background-color: #1bca9b; 
+	border:1px solid white; 
+	font-size: 16px; 
+	padding: 2px 5px; 
+	border-radius: 3px;
+	width:250px; 
+	color: white; 
+	border-width:1px;
+}
 body {
 	background-color: #1bca9b;
 	padding: 0;
@@ -275,7 +285,6 @@ body {
 
 .category:hover{
 	background:white;
-	box-shadow: 1px 1px #aaa;
 }
 
 .category:active{
