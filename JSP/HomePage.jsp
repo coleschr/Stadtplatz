@@ -31,7 +31,6 @@
 			*/
 			function openClass(choice) {
 				sessionStorage.setItem("classChosen", "1");
-				alert("openClass(choice)");
 				window.location.href = "PostsPage.jsp?classID=" + choice;
 			}
 			
@@ -74,16 +73,10 @@
 					
 					document.getElementById("welcomeText").innerHTML = "Hello, " + userName;
 					document.getElementById("signOutButton").innerHTML = "Sign Out";
-					
-					document.getElementById("classPicker").innerHTML = "<select id=\"classPickerSelect\" name=\"classChoice\" onchange=\"selectClass()\"></select>";
-					
+					document.getElementById("classPicker").innerHTML = "<select id=\"classPickerSelect\" style=\" background-color: #1bca9b; border:1px solid white; font-size: 16px; padding: 2px 5px; border-radius: 3px; width:250px; color: white; border-width:1px; \"name=\"classChoice\" onchange=\"selectClass()\"></select>";
 					loadClassPicker();
 				}	
-				
-				
 				loadClassList();
-				
-				
 			}
 			
 			function loadClassPicker() {
