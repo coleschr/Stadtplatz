@@ -75,6 +75,8 @@
 					document.getElementById("welcomeText").innerHTML = "Hello, " + userName;
 					document.getElementById("signOutButton").innerHTML = "Sign Out";
 					
+					document.getElementById("classPicker").innerHTML = "<select id=\"classPickerSelect\" name=\"classChoice\" onchange=\"selectClass()\"></select>";
+					
 					loadClassPicker();
 				}	
 				
@@ -214,8 +216,7 @@
 			<br/>
 			
 			<form name="classPicker" class="classPicker" id="classPicker">
-				<select id="classPickerSelect" name="classChoice" onchange="selectClass()">
-				</select>
+				
 			</form>
 			
 			<a id="registerButton" class="registerButton" href="RegisterPage.jsp"></a>
