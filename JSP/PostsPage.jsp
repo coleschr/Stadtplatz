@@ -64,9 +64,10 @@
 					document.getElementById("welcomeText").innerHTML = "Hello, " + userName;
 					document.getElementById("signOutButton").innerHTML = "Sign Out";
 					
+					document.getElementById("classPicker").innerHTML = "<select id=\"classPickerSelect\" name=\"classChoice\" onchange=\"selectClass()\"></select>";
+				
 					loadClassPicker();
 				}	
-				
 				
 				loadClassList();
 				
@@ -112,6 +113,7 @@
 					newHTML += "<option value=\""+ classData["classes"][i]["id"] + "\">" + classData["classes"][i]["code"] + "</option>"
 				}
 				document.getElementById("classPickerSelect").innerHTML = newHTML;
+				
 			}	
 			
 			
@@ -122,14 +124,13 @@
 				myParams.send();
 				
 				if (myParams.responseText.trim().length == 0) {
-					//document.getElementById("addButton"+classID).innerHTML = "+";
-					document.getElementById("newButton").innerHTML = "";
+					document.getElementById("addButton" + classID).className = "classAddButton";
+					document.getElementById("newButton").style.visibility = "hidden";
 				}
 				else {
-					//document.getElementById("addButton"+classID).innerHTML = "-";
-					document.getElementById("newButton").innerHTML = "<button onclick=\"loadNewPost()\">New</button>";
+					document.getElementById("addButton" + classID).className = "classRemoveButton";
+					document.getElementById("newButton").style.visibility = "visible";
 				}
-				
 				
 				loadClassPicker();
 				
@@ -197,18 +198,18 @@
 				
 				if (userName.length != 0) {
 					if (enrolled.length == 0) {
-						newHTML += "<button id=\"addButton" + classData["classes"][i]["id"] + "\" onclick =\"addClass(" + classData["classes"][i]["id"] + ")\" class=\"classAddButton\"> + </button>";
+						newHTML += "<button id=\"addButton" + classData["classes"][i]["id"] + "\" onclick =\"addClass(" + classData["classes"][i]["id"] + ")\" class=\"classAddButton\"> </button>";
 						//CHNAGED FOR BUTTON STYLIZING
 						//document.getElementById("newButton").innerHTML = "";
 						document.getElementById("newButton").style.visibility = "hidden";
 					}
 					else {
-						newHTML += "<button id=\"addButton" + classData["classes"][i]["id"] + "\" onclick =\"addClass(" + classData["classes"][i]["id"] + ")\" class=\"classAddButton\"> - </button>";
+						newHTML += "<button id=\"addButton" + classData["classes"][i]["id"] + "\" onclick =\"addClass(" + classData["classes"][i]["id"] + ")\" class=\"classRemoveButton\"> </button>";
 						document.getElementById("newButton").style.visibility = "visible";//"<button onclick=\"loadNewPost()\">New</button>";
 					}
 				}
 				else {
-					document.getElementById("newButton").innerHTML = "";
+					//document.getElementById("newButton").innerHTML = "";
 				}
 				
 				newHTML += "<br/><br/>";//"</br><b class=\"classDescription\">" + classData["classes"][i]["description"] + "</b></br></br>";
@@ -531,14 +532,13 @@
 	
 	<body style="background:#eee;" onload="loadPage()">
 	
-		<div id="sneakyDiv" style="height:130px;"></div>
+		<div id="sneakyDiv" style="height:115px;"></div>
 		<div id="HomeBar" style="box-shadow: 2px 2px 2px 2px #aaa; position: fixed; top: 0; width:100%;" class="homeBarDiv">
 			<br/>
 			<a id="titleText" class="titleText" href="HomePage.jsp"><img src="assets/logo.png"/>Stadtplatz</a>
 			
 			<form name="classPicker" class="classPicker" id="classPicker">
-				<select id="classPickerSelect" name="classChoice" onchange="selectClass()">
-				</select>
+				
 				
 			</form>
 			
@@ -558,13 +558,14 @@
 				<br/>
 				<button class="category" id ="aButton"onclick="loadAssignments()">Assignments</button>
 				<button class="category" id ="eButton" onclick="loadExams()">Exams</button>
+				<button class="category" id ="oButton" onclick="loadOther()">Other</button>
 				
 				<br/><br/>
 				<div id="postsList">
 					
 				</div>
 				<br/><br/><br/>
-				<div class="categoryNew" onclick="loadNewPost()" style="float:right; margin-right:10%;" id="newButton">New</div>
+				<div class="categoryNew" onclick="loadNewPost()" style="float:right;visibility:hidden" id="newButton">New</div>
 			</div>
 			<div style="margin-left:25%; width:60%; float:left;" id="classDescription"></div>
 			<div style="margin-left:38%; width:50%; float:left;" id="postsSection">
