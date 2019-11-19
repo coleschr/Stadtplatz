@@ -147,7 +147,7 @@ we should just put class title in the dropdown menu */
 }
 
 .classAddButton:hover {
-	background-image: url(assets/add_black.png);
+	background-image: url(assets/add2.png);
 }
 
 .classAddButton:focus {
@@ -169,7 +169,7 @@ we should just put class title in the dropdown menu */
 }
 
 .classRemoveButton:hover {
-	background-image: url(assets/remove_black.png);
+	background-image: url(assets/remove2.png);
 }
 
 .classRemoveButton:focus {
@@ -227,6 +227,15 @@ we should just put class title in the dropdown menu */
 	border-radius: 3px;
 	margin-bottom: 5px;
 }
+
+.submitLoginButton:active {
+	box-shadow: -1px -1px #000;
+}
+
+.submitLoginButton:focus {
+	outline: none;
+}
+
 /*Posts Page -----------------------------------*/
 body { 
 	margin:0; 
@@ -285,4 +294,12 @@ body {
 	color:white;
 	box-shadow: 1px 1px #aaa;
 }
+
+
+
+
+
+
+
+
 
