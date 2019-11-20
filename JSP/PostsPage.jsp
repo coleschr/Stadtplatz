@@ -261,7 +261,7 @@
 				
 				newHTML += "<br/><form name=\"newPostForm\" onsubmit=\"return newPost()\">";
 				newHTML += "<br/><input class=\"newPostTitle\" name=\"title\" type=\"text\" placeholder=\"Title\"><br/><br/>";
-				newHTML += "Description<br/>";
+				//newHTML += "Description<br/>";
 				newHTML += "<textarea class=\"newPostDescription\" rows =\"10\" name=\"description\" placeholder=\"Description\"></textarea><br/>";
 				newHTML += "<fieldset style=\"border: 0px solid white;\"><input type=\"radio\" name=\"type\" value=\"Assignment\">Assignment   ";
 				newHTML += "<input type=\"radio\" name=\"type\" value=\"Exam\">Exam</fieldset>";
