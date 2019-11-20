@@ -389,16 +389,23 @@ body {
 	padding: 20px;
 }
 
+/* new post stuff */
 .newPostTitle {
 	width:100%;
 	box-sizing: border-box;
-	font-size: 20px;
+	font-size: 16px;
+	padding: 10px;
+	border-radius: 5px;
+	border: 1px solid #aaa;
 }
 
 .newPostDescription {
 	width:100%;
 	box-sizing: border-box;
-	font-size: 20px;
+	font-size: 16px;
+	padding: 10px;
+	border-radius: 5px;
+	border: 1px solid #aaa;
 }
 
 .newPostButton {
