@@ -317,8 +317,10 @@ body {
 
 /*Actually a div which functions as a button*/
 #newButton{
-	width:100%;
-	height: 40px;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width:200px;
 	text-align:center;
 	font-weight:new;
 	background:transparent;
@@ -326,8 +328,9 @@ body {
 	border: 3px solid #53e0bc;
 	padding: 8px;
 	color:#53e0bc;
-	box-sizing: border-box;
-	float: bottom;
+	background-color: #eee; 
+	/* box-sizing: border-box;
+	float: bottom; */
 }
 
 #newButton:hover{
