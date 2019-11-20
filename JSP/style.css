@@ -357,22 +357,6 @@ body {
 	border-radius: 5px;
 }
 
-/* .classPostTitle .classRemoveButton {
-	background-image: url(assets/remove_black.png);
-}
-
-.classPostTitle .classRemoveButton:hover {
-	background-image: url(assets/remove_black2.png);
-}
-
-.classPostTitle .classAddButton {
-	background-image: url(assets/add_black.png);
-}
-
-.classPostTitle .classAddButton:hover {
-	background-image: url(assets/add_black2.png);
-} */
-
 #postsSection {
 	margin-left:5%;
 	width:90%;
@@ -400,5 +384,37 @@ body {
 	background-color: white;
 	border-radius: 5px;
 	padding: 20px;
+}
+
+.newPostTitle {
+	width:100%;
+	box-sizing: border-box;
+	font-size: 20px;
+}
+
+.newPostDescription {
+	width:100%;
+	box-sizing: border-box;
+	font-size: 20px;
+}
+
+.newPostButton {
+	width: 100px;
+	font-size: 20px;
+	box-shadow: 1px 1px #000;
+	background-color: #00695C;
+	color: white;
+	padding: 5px;
+	border-width: 0;
+	border-radius: 3px;
+	float:right;
+}
+
+.newPostButton:active {
+	box-shadow: -1px -1px #000;
+}
+
+.newPostButton:focus {
+  outline: none;
 }
 
