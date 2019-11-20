@@ -443,7 +443,7 @@
 				
 				var newHTML = "<br/>";
 				newHTML += "<div class=\"postHeaderDiv\"><b>" + postData["classes"][0]["title"] + "</b><br/><br/>";
-				newHTML += "<a>" + postData["classes"][0]["description"] + "</a><br/><br/>";
+				newHTML += "<a>" + postData["classes"][0]["description"] + "</a><br/>";
 				newHTML += "<a id=\"postID\" value=\"" + postID + "\"></a>";
 				
 				
@@ -472,7 +472,7 @@
 					
 					
 					if (isSignedIn()) {
-						newHTML += "<form style=\"margin-left:2%;\" id=\"newAnswerForm" + postData["questions"]["questions"][i]["id"] + "\" onsubmit=\"return newAnswer(" + postData["questions"]["questions"][i]["id"] + ", " + postID + ")\">";
+						newHTML += "<br/><br/><form id=\"newAnswerForm" + postData["questions"]["questions"][i]["id"] + "\" onsubmit=\"return newAnswer(" + postData["questions"]["questions"][i]["id"] + ", " + postID + ")\">";
 						newHTML += "Answer: <input name=\"text\" type=\"text\" placeholder=\"Answer text\">";
 						newHTML += "<input name=\"registerButton\" type=\"submit\" value=\"Answer!\"><br/></form>";
 						newHTML += "<b id=\"answerErrorMessage" + postData["questions"]["questions"][i]["id"] + "\" style=\"color:red;\"></b>";
@@ -573,7 +573,7 @@
 		</div>
 		
 		<div style="position:absolute;top:70px;left:0;right:0;bottom:0;">
-			<table style="width:100vw;height:100%;"><tr><td style="width:220px">
+			<table style="width:100vw;height:100%;padding-bottom: 40px;"><tr><td style="width:220px">
 				<div id="assignmentstList">
 					<button class="category" id="aButton" onclick="loadAssignments()" style="margin-left:4px">Assignments</button>
 					<button class="category" id="eButton" onclick="loadExams()">Exams</button>
