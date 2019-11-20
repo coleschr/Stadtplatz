@@ -260,12 +260,12 @@
 				var newHTML = "";
 				
 				newHTML += "<br/><form name=\"newPostForm\" onsubmit=\"return newPost()\">";
-				newHTML += "Title<br/><input name=\"title\" type=\"text\" placeholder=\"Post Title\"><br/><br/>";
+				newHTML += "<br/><input class=\"newPostTitle\" name=\"title\" type=\"text\" placeholder=\"Title\"><br/><br/>";
 				newHTML += "Description<br/>";
-				newHTML += "<input style=\"width:60%; height:20%;\" name=\"description\" type=\"text\" placeholder=\"Post Description\"><br/>";
-				newHTML += "<fieldset style=\"border: 0px solid white;\"><input type=\"radio\" name=\"type\" value=\"Assignment\">Assignment";
+				newHTML += "<textarea class=\"newPostDescription\" rows =\"10\" name=\"description\" placeholder=\"Description\"></textarea><br/>";
+				newHTML += "<fieldset style=\"border: 0px solid white;\"><input type=\"radio\" name=\"type\" value=\"Assignment\">Assignment   ";
 				newHTML += "<input type=\"radio\" name=\"type\" value=\"Exam\">Exam</fieldset>";
-				newHTML += "<input name=\"registerButton\" type=\"submit\" value=\"Post\"><br/></form>";
+				newHTML += "<input class=\"newPostButton\" name=\"registerButton\" type=\"submit\" value=\"Post\"><br/></form>";
 				newHTML += "<b id=\"postErrorMessage\" style=\"color:red;\"></b><br/>";
 				
 				document.getElementById("postsSection").innerHTML = newHTML;
@@ -452,8 +452,9 @@
 					newHTML += "<br/><form name=\"newQuestionForm\" onsubmit=\"return newQuestion(" + postID + ")\">";
 					newHTML += "Ask a question: <input name=\"text\" type=\"text\" placeholder=\"Question text\">";
 					newHTML += "<input name=\"registerButton\" type=\"submit\" value=\"Ask!\"><br/></form>";
-					newHTML += "<b id=\"questionErrorMessage\" style=\"color:red;\"></b></div>";
+					newHTML += "<b id=\"questionErrorMessage\" style=\"color:red;\"></b>";
 				}
+				newHTML += "</div>";
 				
 				var numQuestions = postData["questions"]["num"];
 				
@@ -467,7 +468,7 @@
 					}
 					newHTML += "<a style=\"align:left;\"> " + postData["questions"]["questions"][i]["upvotes"] + "</a><br/>";
 					newHTML += "<a>" + postData["questions"]["questions"][i]["text"] + "</a>";
-					newHTML += "<a> - " + postData["questions"]["questions"][i]["userName"] + "</a>";
+					newHTML += "<a><i style=\"color:#aaa\"> - " + postData["questions"]["questions"][i]["userName"] + "</i></a>";
 					
 					
 					if (isSignedIn()) {
@@ -484,7 +485,7 @@
 					for (var j = 0; j < numAnswers; j++) {
 						newHTML += "<div class=\"postResponseDiv\">";
 						newHTML += "<a>" + postData["questions"]["questions"][i]["answers"]["answers"][j]["text"] + "</a>";
-						newHTML += "<a> - " + postData["questions"]["questions"][i]["answers"]["answers"][j]["userName"] + "</a><br/>";
+						newHTML += "<a><i style=\"color:#aaa\"> - " + postData["questions"]["questions"][i]["answers"]["answers"][j]["userName"] + "</i></a><br/>";
 						newHTML += "</div>";
 					}
 				
@@ -543,10 +544,10 @@
 			$(document).ready(function() { 
 				//alert("doc on ready:");
 				var chosen = sessionStorage.getItem("classChosen")
-				if(chosen == "1"){
+				if(chosen == "1"){ //TODO: check what this is checking for
 					document.getElementById("msGreeting").innerHTML = "<br/>Select conversations by topic on the left!"
 				}else{
-					document.getElementById("msGreeting").innerHTML = "Choose a class to get started.";
+					document.getElementById("msGreeting").innerHTML = "<br/>Choose a class to get started.";
 				}
 				
 			});
