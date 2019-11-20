@@ -26,8 +26,8 @@ body {
 }
 
 .homeBarDiv{
-	padding-top:3vh;
-	padding-bottom:3vh;
+	padding-top:10px;
+	padding-bottom:10px;
 	background-color: #1bca9b;
 }
 
@@ -64,6 +64,10 @@ body {
 }
 .loginButton:hover,.registerButton:hover  {
     text-decoration: underline;
+}
+
+table {
+  border-collapse: collapse;
 }
 
 
@@ -256,22 +260,13 @@ body {
 	margin:0; 
 	padding:0; 
 	box-sizing:border-box; 
+	
 }
 
-#assignmentstList, #sneakyLeftDiv{
-	width:20%; 
-	padding-left:1vw; 
-	padding-right:1vw; 
-	position: fixed;
-	top:115px;
-	border-right: double;
-	left:0;
-	height:90vh;
-	overflow: scroll;
-	/*float:left; 
-	border:1px solid gray; 
-	height: 80vw;
-	border-radius:5px;*/
+#assignmentstList {
+	margin-top:20px;
+	width:100%;
+	height: 100%;
 }
 
 /*category and categoryNew are the left-bar buttons*/
@@ -285,35 +280,45 @@ body {
 
 .category:hover{
 	background:white;
+	box-shadow: 1px 1px #aaa;
 }
 
 .category:active{
 	box-shadow: -1px -1px #aaa;
 }
 
-#abutton {
-	min-width: 200px;
-	background-color:red;
-}
-
-#ebutton {
-	
-}
-
-#obutton {
-	
+.categoryActive {
+	background:transparent;
+	border-radius:5px;
+	border: 1px solid #53e0bc;
+	padding: 8px 12px;
+	color:#53e0bc;
 }
 
 #postsList{
-	margin-left:1vw;
-	padding-left:1vw;
+	overflow:scroll;
+	max-height: calc(100% - 100px);
+	height: calc(100% - 100px);
+	
+}
+
+#postsList table{
+	width: 100%;
+}
+
+#postsList td{
+	padding: 10px;
+	border: 1px solid #666;
+}
+
+#postsList td:hover{
+	background-color: white;
 }
 
 /*Actually a div which functions as a button*/
 #newButton{
-	position: fixed;
-	width:18%;
-	bottom:10px;
+	width:100%;
+	height: 40px;
 	text-align:center;
 	font-weight:new;
 	background:transparent;
@@ -321,6 +326,8 @@ body {
 	border: 3px solid #53e0bc;
 	padding: 8px;
 	color:#53e0bc;
+	box-sizing: border-box;
+	float: bottom;
 }
 
 #newButton:hover{
@@ -333,6 +340,65 @@ body {
 	box-shadow: -1px -1px #aaa;
 }
 
-/*Posts Page: Post View*/
+/*Posts Page: Post Main Stage*/
+.postBody {
+	height: 100%;
+	width: 100%;
+	overflow: scroll;
+	/* background-color: white; */
+}
 
+.classPostTitle {
+	margin-top: 20px;
+	margin-left: 5%; 
+	width: 90%; 
+	float: left;
+	background-color: #1bca9b;
+	border-radius: 5px;
+}
+
+/* .classPostTitle .classRemoveButton {
+	background-image: url(assets/remove_black.png);
+}
+
+.classPostTitle .classRemoveButton:hover {
+	background-image: url(assets/remove_black2.png);
+}
+
+.classPostTitle .classAddButton {
+	background-image: url(assets/add_black.png);
+}
+
+.classPostTitle .classAddButton:hover {
+	background-image: url(assets/add_black2.png);
+} */
+
+#postsSection {
+	margin-left:5%;
+	width:90%;
+	float:left;
+	overflow:scroll;
+	max-height:calc(100%-20px);
+}
+
+.postHeaderDiv {
+	background-color: white;
+	border-radius: 5px;
+	padding: 20px;
+}
+
+.postQuestionDiv {
+	margin-top: 20px;
+	background-color: white;
+	border-radius: 5px;
+	padding: 20px;
+}
+
+.postResponseDiv {
+	margin-top: 10px;
+	margin-left: 20px;
+	background-color: white;
+	border-radius: 5px;
+	padding: 20px;
+}
 
