@@ -184,8 +184,8 @@
 				
 				var newHTML = "";
 				var i = 0;
-				newHTML += "<a class=\"classTitle\" >" + classData["classes"][i]["code"] + "</a>";
-				newHTML += "<b class=\"className\"> -- " + classData["classes"][i]["name"] + "";
+				newHTML += "<br/><a class=\"classTitle\">" + classData["classes"][i]["code"] + "</a>";
+				newHTML += "<b class=\"className\" > -- " + classData["classes"][i]["name"] + "";
 				document.getElementById("classPickerSelect").SelectedValue = classData["classes"][i]["code"];
 				
 				var theseParams = new XMLHttpRequest();
@@ -212,7 +212,7 @@
 					//document.getElementById("newButton").innerHTML = "";
 				}
 				
-				newHTML += "<br/><br/>";//"</br><b class=\"classDescription\">" + classData["classes"][i]["description"] + "</b></br></br>";
+				newHTML += "<br/><br/>";//"</br><b class=\"classDescription\" >" + classData["classes"][i]["description"] + "</b></br></br>";
 				
 				document.getElementById("classDescription").innerHTML = newHTML;
 				
@@ -307,10 +307,15 @@
 					numResults = postData["num"];
 				
 				/* hopefully we can make the button color the category, eventually*/
-				var newHTML = "<b>Assignments</b><br/><br/>";
+				
+				// Removed header because button gets highlighted
+				/* var newHTML = "<b>Assignments</b><br/><br/>";
 				if (type.length != 0) {
 					newHTML = "<b>Exams</b><br/><br/>";
-				}
+				} */
+				var newHTML = "<table>";
+				
+				
 				//^^^ Added for this functionality
 				/*I gave up... 
 				sessionStorage.setItem("category","a");
@@ -319,18 +324,37 @@
 				}
 				*/
 				for (var i = 0; i < numResults; i++) {
-					newHTML += "<a onclick=\"loadPost(" + postData["classes"][i]["id"] + ")\">" + postData["classes"][i]["title"] + "</a></br></br>";
+					newHTML += "<tr onclick=\"loadPost(" + postData["classes"][i]["id"] + ")\"><td>" + postData["classes"][i]["title"] + "</td></tr>";
 					//newHTML += "<a>" + postData["classes"][i]["description"] + "</a></br></br>";
 				}
+				newHTML += "</table>";
 				
 				document.getElementById("postsList").innerHTML = newHTML;
 			}
 			
 			function loadAssignments() {
 				loadPosts("");
+				
+				document.getElementById("aButton").className = "categoryActive";
+				document.getElementById("eButton").className = "category";
+				document.getElementById("oButton").className = "category";
 			}
+			
 			function loadExams() {
 				loadPosts("Exams");
+				
+				document.getElementById("aButton").className = "category";
+				document.getElementById("eButton").className = "categoryActive";
+				document.getElementById("oButton").className = "category";
+			}
+			
+			function loadOther() {
+				//TODO: load other from database
+				
+				document.getElementById("aButton").className = "category";
+				document.getElementById("eButton").className = "category";
+				document.getElementById("oButton").className = "categoryActive";
+				
 			}
 			
 			
@@ -418,26 +442,23 @@
 				
 				
 				var newHTML = "<br/>";
-				newHTML += "<b>" + postData["classes"][0]["title"] + "</b><br/><br/>";
+				newHTML += "<div class=\"postHeaderDiv\"><b>" + postData["classes"][0]["title"] + "</b><br/><br/>";
 				newHTML += "<a>" + postData["classes"][0]["description"] + "</a><br/><br/>";
 				newHTML += "<a id=\"postID\" value=\"" + postID + "\"></a>";
 				
-				newHTML += "<div style=\"margin-left:2%;\">";
+				
 				
 				if (isSignedIn()) {
 					newHTML += "<br/><form name=\"newQuestionForm\" onsubmit=\"return newQuestion(" + postID + ")\">";
 					newHTML += "Ask a question: <input name=\"text\" type=\"text\" placeholder=\"Question text\">";
 					newHTML += "<input name=\"registerButton\" type=\"submit\" value=\"Ask!\"><br/></form>";
-					newHTML += "<b id=\"questionErrorMessage\" style=\"color:red;\"></b><br/>";
+					newHTML += "<b id=\"questionErrorMessage\" style=\"color:red;\"></b></div>";
 				}
-				
-				
-				
-				newHTML += "<br/>";
 				
 				var numQuestions = postData["questions"]["num"];
 				
 				for (var i = 0; i < numQuestions; i++) {
+					newHTML += "<div class=\"postQuestionDiv\">";
 					if (isSignedIn()) {
 						if (checkUpvoted(postData["questions"]["questions"][i]["id"]))
 							newHTML += "<button id=\"btnUV"+postData["questions"]["questions"][i]["id"]+"\" onclick=\"vote(" +  postData["questions"]["questions"][i]["id"] + ","+postID+")\">+</button>";
@@ -455,18 +476,23 @@
 						newHTML += "<input name=\"registerButton\" type=\"submit\" value=\"Answer!\"><br/></form>";
 						newHTML += "<b id=\"answerErrorMessage" + postData["questions"]["questions"][i]["id"] + "\" style=\"color:red;\"></b>";
 					}
+					
+					newHTML += "</div>";
+					
 					var numAnswers = postData["questions"]["questions"][i]["answers"]["num"];
 					
 					for (var j = 0; j < numAnswers; j++) {
-						newHTML += "<br/><a style=\"margin-left:5%;\">" + postData["questions"]["questions"][i]["answers"]["answers"][j]["text"] + "</a>";
+						newHTML += "<div class=\"postResponseDiv\">";
+						newHTML += "<a>" + postData["questions"]["questions"][i]["answers"]["answers"][j]["text"] + "</a>";
 						newHTML += "<a> - " + postData["questions"]["questions"][i]["answers"]["answers"][j]["userName"] + "</a><br/>";
+						newHTML += "</div>";
 					}
 				
 					
-					newHTML += "<br/><br/>";
+					//newHTML += "<br/><br/>";
 				}
 				
-				newHTML += "<br/><br/></div>";
+				//newHTML += "<br/><br/></div>";
 				 
 				
 				document.getElementById("postsSection").innerHTML = newHTML;
@@ -518,7 +544,7 @@
 				//alert("doc on ready:");
 				var chosen = sessionStorage.getItem("classChosen")
 				if(chosen == "1"){
-					document.getElementById("msGreeting").innerHTML = "Select conversations by topic on the left!"
+					document.getElementById("msGreeting").innerHTML = "<br/>Select conversations by topic on the left!"
 				}else{
 					document.getElementById("msGreeting").innerHTML = "Choose a class to get started.";
 				}
@@ -530,48 +556,45 @@
 	
 	</head>
 	
-	<body style="background:#eee;" onload="loadPage()">
-	
-		<div id="sneakyDiv" style="height:115px;"></div>
-		<div id="HomeBar" style="box-shadow: 2px 2px 2px 2px #aaa; position: fixed; top: 0; width:100%;" class="homeBarDiv">
-			<br/>
+	<body class="postBody" style="background:#eee;" onload="loadPage()">
+		
+		<div id="HomeBar" style="position:absolute;top:0;box-shadow: 2px 2px 2px 2px #aaa;height:50px;width:100vw;" class="homeBarDiv">
+			
 			<a id="titleText" class="titleText" href="HomePage.jsp"><img src="assets/logo.png"/>Stadtplatz</a>
 			
-			<form name="classPicker" class="classPicker" id="classPicker">
-				
-				
-			</form>
+			<form name="classPicker" class="classPicker" id="classPicker"></form>
 			
 			<a id="registerButton" class="registerButton" href="RegisterPage.jsp"></a>
 			<a id="loginButton" class="loginButton" href="LoginPage.jsp"></a>
 			
 			<a id="signOutButton" class="loginButton" onclick="signOut()"></a>
 			<a id="welcomeText" class="registerButton"></a>
-			
-			<br/><br/>
 		</div>
-		<br/><br/>
 		
-		
-		<div>
-			<div id="assignmentstList">
-				<br/>
-				<button class="category" id ="aButton"onclick="loadAssignments()">Assignments</button>
-				<button class="category" id ="eButton" onclick="loadExams()">Exams</button>
-				<button class="category" id ="oButton" onclick="loadOther()">Other</button>
-				
-				<br/><br/>
-				<div id="postsList">
+		<div style="position:absolute;top:70px;left:0;right:0;bottom:0;">
+			<table style="width:100vw;height:100%;"><tr><td style="width:220px">
+				<div id="assignmentstList">
+					<button class="category" id="aButton" onclick="loadAssignments()" style="margin-left:4px">Assignments</button>
+					<button class="category" id="eButton" onclick="loadExams()">Exams</button>
+					<button class="category" id="oButton" onclick="loadOther()">Other</button>
 					
+					<br/><br/>
+					<div id="postsList"></div>
+					
+					<div class="categoryNew" onclick="loadNewPost()" style="visibility:hidden" id="newButton">New</div>
 				</div>
-				<br/><br/><br/>
-				<div class="categoryNew" onclick="loadNewPost()" style="float:right;visibility:hidden" id="newButton">New</div>
-			</div>
-			<div style="margin-left:25%; width:60%; float:left;" id="classDescription"></div>
-			<div style="margin-left:38%; width:50%; float:left;" id="postsSection">
-				<a id="msGreeting"></a>
-			</div>
+			</td>
 			
+			<td>
+			<div class="postBody">
+				<div id="classDescription" class="classPostTitle"></div>
+				<div id="postsSection">
+					<a id="msGreeting"></a>
+				</div>
+			</div>
+				
+			</td></tr></table>
+		
 		</div>
 		
 	</body>
