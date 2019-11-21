@@ -25,8 +25,6 @@
 			
 			function signOut() {
 				
-				//alert("signOut()");
-				
 				var myParams = new XMLHttpRequest();
 				myParams.open("GET", "OneServlet?cmd="+"signOut", false);
 				myParams.send();
@@ -544,11 +542,6 @@
 			$(document).ready(function() { 
 				//alert("doc on ready:");
 				var chosen = sessionStorage.getItem("classChosen")
-				if(chosen == "1"){ //TODO: check what this is checking for
-					document.getElementById("msGreeting").innerHTML = "<br/>Select conversations by topic on the left!"
-				}else{
-					document.getElementById("msGreeting").innerHTML = "<br/>Choose a class to get started.";
-				}
 				
 			});
 			
@@ -557,9 +550,9 @@
 	
 	</head>
 	
-	<body class="postBody" style="background:#eee;" onload="loadPage()">
+	<body class="postBody" style="background:#eee; overflow-x: hidden; overflow-y: hidden;" onload="loadPage()">
 		
-		<div id="HomeBar" style="position:absolute;top:0;box-shadow: 2px 2px 2px 2px #aaa;height:50px;width:100vw;" class="homeBarDiv">
+		<div id="HomeBar" style="position:absolute;top:0;box-shadow: 2px 2px 2px 2px rgba(120, 120, 120, 0.3);height:50px;width:100vw;" class="homeBarDiv">
 			
 			<a id="titleText" class="titleText" href="HomePage.jsp"><img src="assets/logo.png"/>Stadtplatz</a>
 			
@@ -573,24 +566,28 @@
 		</div>
 		
 		<div style="position:absolute;top:70px;left:0;right:0;bottom:0;">
-			<table style="width:100vw;height:100%;padding-bottom: 40px;"><tr><td style="width:220px">
+			<table style="width:100vw;height:100%;padding-bottom: 40px;"><tr><td style=" background:#222222; width:260px">
 				<div id="assignmentstList">
-					<button class="category" id="aButton" onclick="loadAssignments()" style="margin-left:4px">Assignments</button>
+					<div style="text-align:center;margin:0;padding-bottom:8px;vertical-align:middle;">
+					<button class="category" id="aButton" onclick="loadAssignments()">Assignments</button>
 					<button class="category" id="eButton" onclick="loadExams()">Exams</button>
 					<button class="category" id="oButton" onclick="loadOther()">Other</button>
+					</div>
 					
-					<br/><br/>
-					<div id="postsList"></div>
-					
-					<div class="categoryNew" onclick="loadNewPost()" style="visibility:hidden" id="newButton">New</div>
+					<div id="postsList" style=""></div>
+					<div>
+					<div class="categoryNew" onclick="loadNewPost()" style=" margin-left:5px; visibility:hidden; width:230px;" id="newButton" >New</div>
+					</div>
 				</div>
 			</td>
 			
 			<td>
 			<div class="postBody">
-				<div id="classDescription" class="classPostTitle"></div>
-				<div id="postsSection">
-					<a id="msGreeting"></a>
+				<!-- style="border: 1px solid rgba(0, 105, 92, .4);" -->
+				<div id="classDescription" class="classPostTitle" ></div>
+				<div id="postsSection" style="text-align:center; height = 98%;">
+					<br/><div style = "color:#aaa; padding-top:20%;">Select conversations by topic on the left!</div>
+					<!--  a id="msGreeting" style="color:#666; width:100%; vertical-align:center;"></a-->
 				</div>
 			</div>
 				
