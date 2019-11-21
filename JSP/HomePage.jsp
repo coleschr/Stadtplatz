@@ -219,6 +219,7 @@
 		</div>
 		
 		<div class="homeScreenDiv">
+		<br>
 			<img src="assets/logo.png"/>
 			<h1>Stadtplatz</h1>
 		</div>
