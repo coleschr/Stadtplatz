@@ -389,7 +389,6 @@ body {
 	width:52vw;
 	text-decoration: none;
 	box-shadow:inset 0 0 1px 1px #eee;
-	min-width: 500px;
 
 }
 .msButton{
@@ -438,7 +437,6 @@ body {
 	background-color: white;
 	border-radius: 5px;
 	padding: 3px 20px 10px 20px;
-	min-width:600px;
 }
 
 .postResponseDiv {
