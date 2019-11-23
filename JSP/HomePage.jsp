@@ -14,14 +14,11 @@
 			sessionStorage.setItem("selected","null"); //for posts page.
 			 //not actually called when you choose a class...
 			function selectClass() {
-				
 				var choice = document.classPicker.classChoice.value;
-				
 				if (choice.length == 0)
 					return;
 				window.location.href = "PostsPage.jsp?classID=" + choice;
 			}
-			
 			
 			/*
 				Added so clicking + desn't also try to activate the div's href anchor
@@ -32,9 +29,7 @@
 			}
 			
 			function signOut() {
-				
 				//alert("signOut()");
-				
 				var myParams = new XMLHttpRequest();
 				myParams.open("GET", "OneServlet?cmd="+"signOut", false);
 				myParams.send();
