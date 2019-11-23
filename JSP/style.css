@@ -57,6 +57,7 @@ body {
 	padding:16px;
 }
 
+
 .loginButton, .registerButton, 
 .welcomeText, .signOutButton{
 	text-decoration: none;
@@ -67,6 +68,10 @@ body {
 }
 .loginButton:hover,.registerButton:hover  {
     text-decoration: underline;
+}
+/*Overrides above so no underline*/
+#welcomeText:hover{
+	text-decoration:none;
 }
 
 table {
@@ -152,6 +157,7 @@ table {
 	margin-top: 5px;
 	font-weight: normal;
 }
+
 
 .classAddButton {
 	width: 22px;
@@ -255,7 +261,7 @@ table {
 }
 
 /*Posts Page -----------------------------------*/
-/*Posts Page: Sidebar */
+	/*Posts Page: Sidebar */
 body { 
 	margin:0; 
 	padding:0; 
@@ -352,7 +358,8 @@ body {
 	box-shadow: -1px -1px #aaa;
 }
 
-/*Posts Page: Post Main Stage*/
+	/*Posts Page: Post Main Stage*/
+
 .postBody {
 	height: 100%;
 	width: 100%;
@@ -362,10 +369,10 @@ body {
 .classPostTitle {
 	margin-top: 20px;
 	margin-left: 5%; 
-	width: 90%; 
+	width: 89.8%; 
 	float: left;
 	background-color: #1bca9b;
-	border-radius: 5px;
+	border-radius: 5px 5px 0 0;
 }
 
 #postsSection {
@@ -376,27 +383,74 @@ body {
 	max-height:calc(100%-20px);
 }
 
-.postHeaderDiv {
-	background-color: white;
-	border-radius: 5px;
-	padding: 20px;
-	border: 1px solid #aaa;
-	text-align:left;
+/*User input fields + buttons*/
+.msInput{
+	padding:5px;
+	width:52vw;
+	text-decoration: none;
+	box-shadow:inset 0 0 1px 1px #eee;
+	min-width: 500px;
+
+}
+.msButton{
+	padding:7px;
+	border-width: 0;
+	/*box-shadow: 1px 1px #000;*/
+	background-color: #00695C;
+	color: white;
+	text-decoration: none;
+	border-radius: 3px;
+	margin-left: 3vh;
+}
+.msInput:focus{outline: none;}
+.msButton:focus{outline: none;}
+
+/*upvote/downvote arrows*/
+#postsSection button{
+  background-color: transparent;/*#53e0bc;  Green */
+  border: none;
+  color: #aaa;
+  padding: 5px 5px;
+  text-align: center;
+  border-radius:10px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
 }
 
+.postHeaderDiv {
+	background-color: white;
+	border-radius: 0 0 5px 5px;
+	padding: 20px;
+	text-align:left;
+	border: 1px solid #aaa;
+	box-shadow: 1px 1px #eee;
+	
+}
+.postHeaderDiv b{
+	margin:0;
+	line-height:3px;
+}
 .postQuestionDiv {
 	margin-top: 20px;
+	border: 1px solid #aaa;
+	text-align:left;
 	background-color: white;
 	border-radius: 5px;
-	padding: 20px;
+	padding: 3px 20px 10px 20px;
+	min-width:600px;
 }
 
 .postResponseDiv {
-	margin-top: 10px;
-	margin-left: 20px;
+	margin-top: 5px;
+	border: 1px solid #aaa;
+	border-left: 4px solid #00695C;
+	text-align:left;
+	margin-left: 10px;
 	background-color: white;
-	border-radius: 5px;
-	padding: 20px;
+	border-radius: 0 5px 5px 0;
+	padding: 10px 20px;
+	display:inline-block;
 }
 
 /* new post stuff */
@@ -437,4 +491,3 @@ body {
 .newPostButton:focus {
   outline: none;
 }
-
