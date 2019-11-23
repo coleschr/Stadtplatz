@@ -425,7 +425,7 @@
 			function loadPost(postID) {
 				//alert("Load post #" + postID);
 				
-				document.getElementById("postsSection").innerHTML = "<br/><b>Loading results...</b><br/>";
+				document.getElementById("postsSection").innerHTML = "<br/><b>  Loading results...</b><br/>";
 				
 				var myParams = new XMLHttpRequest();
 				myParams.open("GET", "OneServlet?cmd="+"getPost" + "&postID="+postID, false);
@@ -448,8 +448,8 @@
 				
 				if (isSignedIn()) {
 					newHTML += "<br/><form name=\"newQuestionForm\" onsubmit=\"return newQuestion(" + postID + ")\">";
-					newHTML += "Ask a question: <input name=\"text\" type=\"text\" placeholder=\"Question text\">";
-					newHTML += "<input name=\"registerButton\" type=\"submit\" value=\"Ask!\"><br/></form>";
+					newHTML += "<input class=\"msInput\" name=\"text\" type=\"text\" placeholder=\"Ask a question...\">";
+					newHTML += "<input class=\"msButton\" name=\"registerButton\" type=\"submit\" value=\"ASK\"><br/></form>";
 					newHTML += "<b id=\"questionErrorMessage\" style=\"color:red;\"></b>";
 				}
 				newHTML += "</div>";
@@ -460,19 +460,19 @@
 					newHTML += "<div class=\"postQuestionDiv\">";
 					if (isSignedIn()) {
 						if (checkUpvoted(postData["questions"]["questions"][i]["id"]))
-							newHTML += "<button id=\"btnUV"+postData["questions"]["questions"][i]["id"]+"\" onclick=\"vote(" +  postData["questions"]["questions"][i]["id"] + ","+postID+")\">+</button>";
+							newHTML += "<button id=\"btnUV"+postData["questions"]["questions"][i]["id"]+"\" onclick=\"vote(" +  postData["questions"]["questions"][i]["id"] + ","+postID+")\">&#x2BC5</button>";
 						else
-							newHTML += "<button id=\"btnUV"+postData["questions"]["questions"][i]["id"]+"\" onclick=\"vote(" +  postData["questions"]["questions"][i]["id"] + ","+postID+ ")\">-</button>";
+							newHTML += "<button id=\"btnUV"+postData["questions"]["questions"][i]["id"]+"\" onclick=\"vote(" +  postData["questions"]["questions"][i]["id"] + ","+postID+ ")\">&#x2BC6</button>";
 					}
-					newHTML += "<a style=\"align:left;\"> " + postData["questions"]["questions"][i]["upvotes"] + "</a><br/>";
+					newHTML += "<a style=\"align:left; color:#aaa;font-size:10px;\"> " + postData["questions"]["questions"][i]["upvotes"] + "</a><br/>";
 					newHTML += "<a>" + postData["questions"]["questions"][i]["text"] + "</a>";
 					newHTML += "<a><i style=\"color:#aaa\"> - " + postData["questions"]["questions"][i]["userName"] + "</i></a>";
 					
 					
 					if (isSignedIn()) {
 						newHTML += "<br/><br/><form id=\"newAnswerForm" + postData["questions"]["questions"][i]["id"] + "\" onsubmit=\"return newAnswer(" + postData["questions"]["questions"][i]["id"] + ", " + postID + ")\">";
-						newHTML += "Answer: <input name=\"text\" type=\"text\" placeholder=\"Answer text\">";
-						newHTML += "<input name=\"registerButton\" type=\"submit\" value=\"Answer!\"><br/></form>";
+						newHTML += "<input class=\"msInput\" name=\"text\" type=\"text\" placeholder=\"Your answer...\">";
+						newHTML += "<input class=\"msButton\" name=\"registerButton\" type=\"submit\" value=\"REPLY\"><br/></form>";
 						newHTML += "<b id=\"answerErrorMessage" + postData["questions"]["questions"][i]["id"] + "\" style=\"color:red;\"></b>";
 					}
 					
@@ -484,7 +484,7 @@
 						newHTML += "<div class=\"postResponseDiv\">";
 						newHTML += "<a>" + postData["questions"]["questions"][i]["answers"]["answers"][j]["text"] + "</a>";
 						newHTML += "<a><i style=\"color:#aaa\"> - " + postData["questions"]["questions"][i]["answers"]["answers"][j]["userName"] + "</i></a><br/>";
-						newHTML += "</div>";
+						newHTML += "</div></br>";
 					}
 				
 					
@@ -527,12 +527,12 @@
 			}
 			
 			function vote(questionID, postID) {
-				if (document.getElementById(("btnUV"+questionID)).innerHTML == "+") {
+				if (document.getElementById(("btnUV"+questionID)).innerHTML == "&#x2BC5") {
 					if (!upvote(questionID, postID)) return false;
-					document.getElementById(("btnUV"+questionID)).innerHTML = "-";
+					document.getElementById(("btnUV"+questionID)).innerHTML = "&#x2BC6";
 				} else {
 					if (!downvote(questionID, postID)) return false;
-					document.getElementById(("btnUV"+questionID)).innerHTML = "+";
+					document.getElementById(("btnUV"+questionID)).innerHTML = "&#x2BC5";
 				}
 			}
 			
@@ -584,10 +584,11 @@
 			<td>
 			<div class="postBody">
 				<!-- style="border: 1px solid rgba(0, 105, 92, .4);" -->
-				<div id="classDescription" class="classPostTitle" ></div>
-				<div id="postsSection" style="text-align:center; height = 98%;">
+				<div id="classDescription" style="margin-bottom:-20px; border: 1px solid rgba(0, 105, 92, 0.4);  " class="classPostTitle" ></div>
+				<div id="postsSection" style="text-align:left; height = 98%;">
+				<span style="text-align:center;">
 					<br/><div style = "color:#aaa; padding-top:20%;">Select conversations by topic on the left!</div>
-					<!--  a id="msGreeting" style="color:#666; width:100%; vertical-align:center;"></a-->
+					</span>
 				</div>
 			</div>
 				
