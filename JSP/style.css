@@ -320,8 +320,7 @@ body {
 }
 
 #postsList td:hover{
-	background-color: #53e0bc;
-	text-decoration: underline;
+	background-color: rgba(83, 224, 188, 0.6);
 }
 
 .postsList {
@@ -393,6 +392,7 @@ body {
 	width:calc(100% - 90px);
 	text-decoration: none;
 	box-shadow:inset 0 0 1px 1px #eee;
+	margin-top: 8px;
 
 }
 .msButton{
@@ -403,7 +403,7 @@ body {
 	color: white;
 	text-decoration: none;
 	border-radius: 3px;
-	margin-left: 20px;
+	margin-left: 10px;
 }
 .msInput:focus{outline: none;}
 .msButton:focus{outline: none;}
@@ -413,6 +413,7 @@ body {
   background-color: transparent;/*#53e0bc;  Green */
   border: none;
   color: #aaa;
+  margin-bottom:5px;
   padding: 5px 5px;
   text-align: center;
   border-radius:10px;
