@@ -303,17 +303,10 @@ body {
 }
 
 #postsList{
-	/*overflow:scroll;*/
-	max-height: calc(100% - 100px);
-	height: calc(100% - 100px);
 	background:#eee;
 	border: 1px solid #aaa;
 	overflow-y:auto;
 	overflow-x: auto;
-	/*calc(100%-100px);*/
-	/*max-height: calc(100% - 90px);*/
-	
-	
 }
 
 #postsList table{
@@ -327,9 +320,20 @@ body {
 }
 
 #postsList td:hover{
-	background-color: white;
+	background-color: #53e0bc;
 	text-decoration: underline;
 }
+
+.postsList {
+	max-height: calc(100% - 50px);
+	height: calc(100% - 50px);
+}
+
+.postsListEditable {
+	max-height: calc(100% - 100px);
+	height: calc(100% - 100px);
+}
+
 
 /*Actually a div which functions as a button*/
 #newButton{
@@ -386,7 +390,7 @@ body {
 /*User input fields + buttons*/
 .msInput{
 	padding:5px;
-	width:52vw;
+	width:calc(100% - 90px);
 	text-decoration: none;
 	box-shadow:inset 0 0 1px 1px #eee;
 
@@ -399,7 +403,7 @@ body {
 	color: white;
 	text-decoration: none;
 	border-radius: 3px;
-	margin-left: 3vh;
+	margin-left: 20px;
 }
 .msInput:focus{outline: none;}
 .msButton:focus{outline: none;}
