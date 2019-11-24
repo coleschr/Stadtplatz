@@ -304,6 +304,8 @@ public class OneServlet extends HttpServlet {
             int typeID = 1;
             if (type.equals("Exam"))
                 typeID = 0;
+            if (type.equals("Other"))
+            	typeID = 2;
                 
             String reply = myDB.newPost((int)session.getAttribute("userID"), classID, typeID, title, description);
             
@@ -324,6 +326,23 @@ public class OneServlet extends HttpServlet {
             
             String classData = "{\"num\":0}";
             classData = myDB.getPosts(classID,1);
+            
+            out.println(classData);
+            
+            return;
+        }
+        
+     // User wants list of other
+        if (command.equals("getOther")) {
+            
+            // Now check with DB
+            DBCommunicator myDB = new DBCommunicator();
+            myDB.connect();
+            
+            int classID = Integer.parseInt(request.getParameter("classID"));
+            
+            String classData = "{\"num\":0}";
+            classData = myDB.getPosts(classID,2);
             
             out.println(classData);
             
@@ -379,7 +398,7 @@ public class OneServlet extends HttpServlet {
             String text = request.getParameter("text");
             
             if (text.length() == 0) {
-                out.println("Please enter ask a question");
+                out.println("Please enter text");
                 return;
             }
             

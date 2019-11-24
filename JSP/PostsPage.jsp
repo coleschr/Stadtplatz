@@ -194,6 +194,8 @@
 				if (theseParams.responseText.trim().length > 0)
 					enrolled = theseParams.responseText.trim();				
 				
+				
+				
 				if (userName.length != 0) {
 					if (enrolled.length == 0) {
 						newHTML += "<button id=\"addButton" + classData["classes"][i]["id"] + "\" onclick =\"addClass(" + classData["classes"][i]["id"] + ")\" class=\"classAddButton\"> </button>";
@@ -247,8 +249,11 @@
 				if (type == "Exam") {
 					loadExams();
 				}
-				else {
+				else if (type == "Assignment") {
 					loadAssignments();
+				}
+				else if (type == "Other") {
+					loadOther();
 				}
 				
 				document.getElementById("postsSection").innerHTML = "<br/><br/><b></b>Post added successfully<br/><br/>";
@@ -264,7 +269,8 @@
 				//newHTML += "Description<br/>";
 				newHTML += "<textarea class=\"newPostDescription\" rows =\"10\" name=\"description\" placeholder=\"Description\"></textarea><br/>";
 				newHTML += "<fieldset style=\"border: 0px solid white;\"><input type=\"radio\" name=\"type\" value=\"Assignment\">Assignment   ";
-				newHTML += "<input type=\"radio\" name=\"type\" value=\"Exam\">Exam</fieldset>";
+				newHTML += "<input type=\"radio\" name=\"type\" value=\"Exam\">Exam";
+				newHTML += "<input type=\"radio\" name=\"type\" value=\"Other\">Other</fieldset>";
 				newHTML += "<input class=\"newPostButton\" name=\"registerButton\" type=\"submit\" value=\"Post\"><br/></form>";
 				newHTML += "<b id=\"postErrorMessage\" style=\"color:red;\"></b><br/>";
 				
@@ -279,22 +285,24 @@
 				//alert("Load posts " + type);
 				
 				//logic for lightening the currently selected button
-				if(type.length != 0){
+				/* if(type.length != 0){
 					//alert("E");
 					sessionStorage.setItem("selected","e");
 					
 				}else{ 
 					//alert("A");
 					sessionStorage.setItem("selected","a");
-				}
+				} */
 				
 				var searchFor = parseSearchParams()["classID"];
 					
 				var myParams = new XMLHttpRequest();
-				if (type.length == 0)
+				if (type == "Assignments")
 					myParams.open("GET", "OneServlet?cmd="+"getAssignments" + "&classID="+searchFor, false);
-				else
+				else if (type == "Exams")
 					myParams.open("GET", "OneServlet?cmd="+"getExams" + "&classID="+searchFor, false);
+				else if (type == "Other")
+					myParams.open("GET", "OneServlet?cmd="+"getOther" + "&classID="+searchFor, false);
 				myParams.send();
 				
 				//alert(myParams.responseText.trim());
@@ -333,7 +341,7 @@
 			}
 			
 			function loadAssignments() {
-				loadPosts("");
+				loadPosts("Assignments");
 				
 				document.getElementById("aButton").className = "categoryActive";
 				document.getElementById("eButton").className = "category";
@@ -350,6 +358,8 @@
 			
 			function loadOther() {
 				//TODO: load other from database
+				
+				loadPosts("Other");
 				
 				document.getElementById("aButton").className = "category";
 				document.getElementById("eButton").className = "category";
@@ -427,12 +437,11 @@
 			function loadPost(postID) {
 				//alert("Load post #" + postID);
 				
-				document.getElementById("postsSection").innerHTML = "<br/><b>  Loading results...</b><br/>";
+				
 				
 				var myParams = new XMLHttpRequest();
 				myParams.open("GET", "OneServlet?cmd="+"getPost" + "&postID="+postID, false);
 				myParams.send();
-				
 				//alert(myParams.responseText.trim());
 				
 				var postData = JSON.parse(myParams.responseText.trim());
@@ -463,13 +472,21 @@
 					newHTML += "<div class=\"postQuestionDiv\">";
 					
 					//generates upvote stuff
-					newHTML += "<a style=\"align:left; color:#aaa;font-size:10px;\"> " + postData["questions"]["questions"][i]["upvotes"] + "</a>";
+					
 					if (isSignedIn()) {
-						if (checkUpvoted(postData["questions"]["questions"][i]["id"]))
-							newHTML += "<button id=\"btnUV"+postData["questions"]["questions"][i]["id"]+"\" onclick=\"vote(" +  postData["questions"]["questions"][i]["id"] + ","+postID+")\">&#x2BC5 upvote</button></br>";
-						else
-							newHTML += "<button id=\"btnUV"+postData["questions"]["questions"][i]["id"]+"\" onclick=\"vote(" +  postData["questions"]["questions"][i]["id"] + ","+postID+ ")\">&#x2BC6 downvote</button></br>";
+						if (checkUpvoted(postData["questions"]["questions"][i]["id"])) {
+							newHTML += "<a style=\"align:left; color:#aaa;font-size:10px;\"> " + postData["questions"]["questions"][i]["upvotes"] + "</a>";
+							newHTML += "<button id=\"btnUV"+postData["questions"]["questions"][i]["id"]+"\" onclick=\"vote(" +  postData["questions"]["questions"][i]["id"] + ","+postID+")\">⇧</button></br>";
+						}
+						else {
+							newHTML += "<a style=\"align:left; color:#1bca9b;font-size:10px; font-weight:bold;\"> " + postData["questions"]["questions"][i]["upvotes"] + "</a>";
+							newHTML += "<button id=\"btnUV"+postData["questions"]["questions"][i]["id"]+"\" onclick=\"vote(" +  postData["questions"]["questions"][i]["id"] + ","+postID+ ")\">⇩</button></br>";
+						}
 					}
+					else {
+						newHTML += "<a style=\"align:left; color:#aaa;font-size:10px;\"> " + postData["questions"]["questions"][i]["upvotes"] + "</a></br>";
+					}
+					
 					newHTML += "<a>" + postData["questions"]["questions"][i]["text"] + "</a>";
 					newHTML += "<a><i style=\"color:#aaa\"> - " + postData["questions"]["questions"][i]["userName"] + "</i></a>";
 					
@@ -501,6 +518,7 @@
 				
 				document.getElementById("postsSection").innerHTML = newHTML;
 				
+				
 			}
 			
 			function downvote(questionID, postID) {
@@ -530,14 +548,15 @@
 				
 				loadPost(postID);
 			}
-			
+			//&#x2BC5 upvote
+			//&#x2BC6 downvote
 			function vote(questionID, postID) {
-				if (document.getElementById(("btnUV"+questionID)).innerHTML == "&#x2BC5 upvote") {
+				if (document.getElementById(("btnUV"+questionID)).innerHTML == "⇧") {
 					if (!upvote(questionID, postID)) return false;
-					document.getElementById(("btnUV"+questionID)).innerHTML = "&#x2BC6 downvote";
+					document.getElementById(("btnUV"+questionID)).innerHTML = "⇩";
 				} else {
 					if (!downvote(questionID, postID)) return false;
-					document.getElementById(("btnUV"+questionID)).innerHTML = "&#x2BC5 upvote";
+					document.getElementById(("btnUV"+questionID)).innerHTML = "⇧";
 				}
 			}
 			
