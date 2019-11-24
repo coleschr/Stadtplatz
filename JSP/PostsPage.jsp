@@ -200,10 +200,12 @@
 						//CHNAGED FOR BUTTON STYLIZING
 						//document.getElementById("newButton").innerHTML = "";
 						document.getElementById("newButton").style.visibility = "hidden";
+						document.getElementById("postsList").className = "postsList";
 					}
 					else {
 						newHTML += "<button id=\"addButton" + classData["classes"][i]["id"] + "\" onclick =\"addClass(" + classData["classes"][i]["id"] + ")\" class=\"classRemoveButton\"> </button>";
 						document.getElementById("newButton").style.visibility = "visible";//"<button onclick=\"loadNewPost()\">New</button>";
+						document.getElementById("postsList").className = "postsListEditable";
 					}
 				}
 				else {
@@ -491,7 +493,7 @@
 					//newHTML += "<br/><br/>";
 				}
 				
-				//newHTML += "<br/><br/></div>";
+				newHTML += "<br/><br/>";
 				 
 				
 				document.getElementById("postsSection").innerHTML = newHTML;
@@ -574,7 +576,7 @@
 					<button class="category" id="oButton" onclick="loadOther()">Other</button>
 					</div>
 					
-					<div id="postsList" style=""></div>
+					<div id="postsList" class="postsList"></div>
 					<div>
 					<div class="categoryNew" onclick="loadNewPost()" style=" margin-left:5px; visibility:hidden; width:230px;" id="newButton" >New</div>
 					</div>
