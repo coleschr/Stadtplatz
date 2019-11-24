@@ -447,9 +447,9 @@
 				newHTML += "<a id=\"postID\" value=\"" + postID + "\"></a>";
 				
 				
-				
+				//Ask a question form
 				if (isSignedIn()) {
-					newHTML += "<br/><form name=\"newQuestionForm\" onsubmit=\"return newQuestion(" + postID + ")\">";
+					newHTML += "<form style=\"margin-top:10px;\" name=\"newQuestionForm\" onsubmit=\"return newQuestion(" + postID + ")\">";
 					newHTML += "<input class=\"msInput\" name=\"text\" type=\"text\" placeholder=\"Ask a question...\">";
 					newHTML += "<input class=\"msButton\" name=\"registerButton\" type=\"submit\" value=\"ASK\"><br/></form>";
 					newHTML += "<b id=\"questionErrorMessage\" style=\"color:red;\"></b>";
@@ -458,21 +458,24 @@
 				
 				var numQuestions = postData["questions"]["num"];
 				
+				
 				for (var i = 0; i < numQuestions; i++) {
 					newHTML += "<div class=\"postQuestionDiv\">";
+					
+					//generates upvote stuff
+					newHTML += "<a style=\"align:left; color:#aaa;font-size:10px;\"> " + postData["questions"]["questions"][i]["upvotes"] + "</a>";
 					if (isSignedIn()) {
 						if (checkUpvoted(postData["questions"]["questions"][i]["id"]))
-							newHTML += "<button id=\"btnUV"+postData["questions"]["questions"][i]["id"]+"\" onclick=\"vote(" +  postData["questions"]["questions"][i]["id"] + ","+postID+")\">&#x2BC5</button>";
+							newHTML += "<button id=\"btnUV"+postData["questions"]["questions"][i]["id"]+"\" onclick=\"vote(" +  postData["questions"]["questions"][i]["id"] + ","+postID+")\">&#x2BC5 upvote</button></br>";
 						else
-							newHTML += "<button id=\"btnUV"+postData["questions"]["questions"][i]["id"]+"\" onclick=\"vote(" +  postData["questions"]["questions"][i]["id"] + ","+postID+ ")\">&#x2BC6</button>";
+							newHTML += "<button id=\"btnUV"+postData["questions"]["questions"][i]["id"]+"\" onclick=\"vote(" +  postData["questions"]["questions"][i]["id"] + ","+postID+ ")\">&#x2BC6 downvote</button></br>";
 					}
-					newHTML += "<a style=\"align:left; color:#aaa;font-size:10px;\"> " + postData["questions"]["questions"][i]["upvotes"] + "</a><br/>";
 					newHTML += "<a>" + postData["questions"]["questions"][i]["text"] + "</a>";
 					newHTML += "<a><i style=\"color:#aaa\"> - " + postData["questions"]["questions"][i]["userName"] + "</i></a>";
 					
 					
 					if (isSignedIn()) {
-						newHTML += "<br/><br/><form id=\"newAnswerForm" + postData["questions"]["questions"][i]["id"] + "\" onsubmit=\"return newAnswer(" + postData["questions"]["questions"][i]["id"] + ", " + postID + ")\">";
+						newHTML += "<br/><form id=\"newAnswerForm" + postData["questions"]["questions"][i]["id"] + "\" onsubmit=\"return newAnswer(" + postData["questions"]["questions"][i]["id"] + ", " + postID + ")\">";
 						newHTML += "<input class=\"msInput\" name=\"text\" type=\"text\" placeholder=\"Your answer...\">";
 						newHTML += "<input class=\"msButton\" name=\"registerButton\" type=\"submit\" value=\"REPLY\"><br/></form>";
 						newHTML += "<b id=\"answerErrorMessage" + postData["questions"]["questions"][i]["id"] + "\" style=\"color:red;\"></b>";
@@ -529,12 +532,12 @@
 			}
 			
 			function vote(questionID, postID) {
-				if (document.getElementById(("btnUV"+questionID)).innerHTML == "&#x2BC5") {
+				if (document.getElementById(("btnUV"+questionID)).innerHTML == "&#x2BC5 upvote") {
 					if (!upvote(questionID, postID)) return false;
-					document.getElementById(("btnUV"+questionID)).innerHTML = "&#x2BC6";
+					document.getElementById(("btnUV"+questionID)).innerHTML = "&#x2BC6 downvote";
 				} else {
 					if (!downvote(questionID, postID)) return false;
-					document.getElementById(("btnUV"+questionID)).innerHTML = "&#x2BC5";
+					document.getElementById(("btnUV"+questionID)).innerHTML = "&#x2BC5 upvote";
 				}
 			}
 			
