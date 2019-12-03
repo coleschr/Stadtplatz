@@ -69,7 +69,7 @@
 		
 		function interval() {
 			  //setInterval(function(){ loadPosts(curr_selection) }, 5000);
-			  setInterval(function(){ update_all_posts() }, 5000);
+			  setInterval(function(){ update_all_posts() }, 10000);
 			  setInterval(function(){ update_questions() }, 5000);
 			  
 		}
