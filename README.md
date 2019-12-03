@@ -1,6 +1,6 @@
 # Stadtplatz
 
-Currently Stadtplatz is functional; if we were to deploy it now, students could discuss their classes. CSS is complete, 
-except for some issues when the window is significantly smaller than full-screen.
-Soon we will auto-update a user's screen when another user makes a post (so that the first user does not need to refresh 
-to observer the changes). 
+Currently, Stadtplatz is functional; if we were to deploy it now, students could create and log into accounts, join classes, create and replly to posts, and discuss their classes.
+
+Some issues that were purposely not addressed include awkward layout arrangements when the window is significantly smaller than full-screen and some of the CSS code is not supported by all browsers (use Google Chrome for optimal viewing).
+
