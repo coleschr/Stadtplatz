@@ -16,6 +16,7 @@
 		var curr_postid = 0;
 		var curr_index = question_ids.length;
 		var is_active = false;
+		var on_load_new_post = false;
 		
 		function update_questions(){
 			
@@ -67,7 +68,7 @@
 		
 		
 		function interval() {
-			  setInterval(function(){ loadPosts(curr_selection) }, 5000);
+			  //setInterval(function(){ loadPosts(curr_selection) }, 5000);
 			  setInterval(function(){ update_all_posts() }, 5000);
 			  setInterval(function(){ update_questions() }, 5000);
 			  
