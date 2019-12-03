@@ -132,9 +132,9 @@ public class DBCommunicator {
                 //System.out.println ("Found class: " + classCode);
                 JSONResult +=
                 "{ \"id\": " + classID +
-                ", \"code\": \"" + classCode +
-                "\", \"name\": \"" + className +
-                "\", \"description\": \"" + classDescription+
+                ", \"code\": \"" + classCode.replace('\"','\'') +
+                "\", \"name\": \"" + className.replace('\"','\'') +
+                "\", \"description\": \"" + classDescription.replace('\"','\'')+
                 "\"}";
                 classCount++;
             }
@@ -147,9 +147,9 @@ public class DBCommunicator {
                 //System.out.println ("Found class: " + classCode);
                 JSONResult +=
                 ",{ \"id\": " + classID +
-                ", \"code\": \"" + classCode +
-                "\", \"name\": \"" + className +
-                "\", \"description\": \"" + classDescription+
+                ", \"code\": \"" + classCode.replace('\"','\'') +
+                "\", \"name\": \"" + className.replace('\"','\'') +
+                "\", \"description\": \"" + classDescription.replace('\"','\'')+
                 "\" }";
                 classCount++;
             }
@@ -191,9 +191,9 @@ public class DBCommunicator {
                 //System.out.println ("Found class: " + classCode);
                 JSONResult +=
                 "{ \"id\": " + classID +
-                ", \"code\": \"" + classCode +
-                "\", \"name\": \"" + className +
-                "\", \"description\": \"" + classDescription+
+                ", \"code\": \"" + classCode.replace('\"','\'') +
+                "\", \"name\": \"" + className.replace('\"','\'') +
+                "\", \"description\": \"" + classDescription.replace('\"','\'')+
                 "\"}";
                 classCount++;
             }
@@ -206,9 +206,9 @@ public class DBCommunicator {
                 //System.out.println ("Found class: " + classCode);
                 JSONResult +=
                 ",{ \"id\": " + classID +
-                ", \"code\": \"" + classCode +
-                "\", \"name\": \"" + className +
-                "\", \"description\": \"" + classDescription+
+                ", \"code\": \"" + classCode.replace('\"','\'') +
+                "\", \"name\": \"" + className.replace('\"','\'') +
+                "\", \"description\": \"" + classDescription.replace('\"','\'')+
                 "\" }";
                 classCount++;
             }
@@ -259,9 +259,9 @@ public class DBCommunicator {
                 //System.out.println ("Found class: " + classCode);
                 JSONResult +=
                 "{ \"id\": " + gottenClassID +
-                ", \"code\": \"" + classCode +
-                "\", \"name\": \"" + className +
-                "\", \"description\": \"" + classDescription+
+                ", \"code\": \"" + classCode.replace('\"','\'') +
+                "\", \"name\": \"" + className.replace('\"','\'') +
+                "\", \"description\": \"" + classDescription.replace('\"','\'')+
                 "\"}";
                 classCount++;
             }
@@ -518,8 +518,8 @@ public class DBCommunicator {
                 String postDescription = rs.getString("postText");
                 //System.out.println ("Found class: " + classCode);
                 JSONResult +=
-                "{\"title\": \"" + postTitle +
-                "\", \"description\": \"" + postDescription+
+                "{\"title\": \"" + postTitle.replace('\"','\'') +
+                "\", \"description\": \"" + postDescription.replace('\"','\'')+
                 "\", \"id\": " + postID+
                 "}";
                 classCount++;
@@ -532,8 +532,8 @@ public class DBCommunicator {
                 String postDescription = rs.getString("postText");
                 //System.out.println ("Found class: " + classCode);
                 JSONResult +=
-                ",{\"title\": \"" + postTitle +
-                "\", \"description\": \"" + postDescription+
+                ",{\"title\": \"" + postTitle.replace('\"','\'') +
+                "\", \"description\": \"" + postDescription.replace('\"','\'')+
                 "\", \"id\": " + postID+
                 "}";
                 classCount++;
@@ -589,8 +589,8 @@ public class DBCommunicator {
                 int id = rs2.getInt("responseID");
                 //System.out.println ("Found class: " + classCode);
                 JSONResult +=
-                "{\"text\": \"" + responseText +
-                "\",\"userName\": \"" + userName +
+                "{\"text\": \"" + responseText.replace('\"','\'') +
+                "\",\"userName\": \"" + userName.replace('\"','\'') +
                 "\",\"id\": " + id+
                 "}";
                 classCount++;
@@ -602,8 +602,8 @@ public class DBCommunicator {
                 int id = rs2.getInt("responseID");
                 //System.out.println ("Found class: " + classCode);
                 JSONResult +=
-                ",{\"text\": \"" + responseText +
-                "\",\"userName\": \"" + userName +
+                ",{\"text\": \"" + responseText.replace('\"','\'') +
+                "\",\"userName\": \"" + userName.replace('\"','\'') +
                 "\",\"id\": " + id+
                 "}";
                 classCount++;
@@ -645,8 +645,8 @@ public class DBCommunicator {
                 int id = rs.getInt("questionID");
                 //System.out.println ("Found class: " + classCode);
                 JSONResult +=
-                "{\"text\": \"" + questionText +
-                "\",\"userName\": \"" + userName +
+                "{\"text\": \"" + questionText.replace('\"','\'') +
+                "\",\"userName\": \"" + userName.replace('\"','\'') +
                 "\", \"upvotes\": " + questionUpvotes+
                 ", \"id\": " + id+
                 ",\"answers\":" + getAnswerByQuestionID(id) + "}";
@@ -659,8 +659,8 @@ public class DBCommunicator {
                 int id = rs.getInt("questionID");
                 //System.out.println ("Found class: " + classCode);
                 JSONResult +=
-                ",{\"text\": \"" + questionText +
-                "\",\"userName\": \"" + userName +
+                ",{\"text\": \"" + questionText.replace('\"','\'') +
+                "\",\"userName\": \"" + userName.replace('\"','\'') +
                 "\", \"upvotes\": " + questionUpvotes+
                 ", \"id\": " + id+
                 ",\"answers\":" + getAnswerByQuestionID(id) + "}";
@@ -700,8 +700,8 @@ public class DBCommunicator {
                 String postDescription = rs.getString("postText");
                 //System.out.println ("Found class: " + classCode);
                 JSONResult +=
-                "{\"title\": \"" + postTitle +
-                "\", \"description\": \"" + postDescription+
+                "{\"title\": \"" + postTitle.replace('\"','\'') +
+                "\", \"description\": \"" + postDescription.replace('\"','\'')+
                 "\", \"id\": " + postID+
                 "}";
                 classCount++;
