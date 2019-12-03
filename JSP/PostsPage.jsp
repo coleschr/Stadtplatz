@@ -75,7 +75,7 @@
 		}
 		
 		function update_all_posts(){
-			if(!is_active){
+			if(!is_active && !on_load_new_post){
 				loadPost(curr_postid);
 			}
 		}
@@ -330,11 +330,12 @@
 				}
 				
 				document.getElementById("postsSection").innerHTML = "<br/><br/><b></b>Post added successfully<br/><br/>";
-				
+				on_load_new_post = false;
 				return false;
 			}
 			
 			function loadNewPost() {
+				on_load_new_post = true;
 				var newHTML = "";
 				
 				newHTML += "<br/><form name=\"newPostForm\" onsubmit=\"return newPost()\">";
