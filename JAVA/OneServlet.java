@@ -1,3 +1,4 @@
+package Stadplatz;
 
 
 import java.io.IOException;
@@ -10,8 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import Stadplatz.DBCommunicator;
 
 /**
  * Servlet implementation class OneServlet
@@ -503,6 +502,20 @@ public class OneServlet extends HttpServlet {
             return;
         }
         
+        if (command.equals("getQuestionByID")) {
+            
+            // Now check with DB
+            DBCommunicator myDB = new DBCommunicator();
+            myDB.connect();
+            
+            int questionID = Integer.parseInt(request.getParameter("qid"));
+            String msg = "{\"num\":0}"; 
+            msg = myDB.getAnswerByQuestionID(questionID);
+            
+            out.println(msg);
+            
+            return;
+        }
     }
     
     

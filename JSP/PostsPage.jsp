@@ -11,6 +11,79 @@
 		<script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"> </script>
 		<script>
 		
+		var curr_selection = "";
+		var question_ids = [];
+		var curr_postid = 0;
+		var curr_index = question_ids.length;
+		var is_active = false;
+		var on_load_new_post = false;
+		
+		function update_questions(){
+			
+			if(question_ids.length == 0){
+				return;
+			}
+			if(curr_index == 0){
+				curr_index = question_ids.length;
+			}
+			//update_question_by_id(question_ids[curr_index-1]);
+			curr_index = curr_index - 1;
+			update_question_by_id(question_ids[curr_index]);
+		}
+		
+		function set_active(){
+			is_active = true;
+		}
+		
+		function set_inactive(){
+			is_active = false;
+		}
+		
+		function update_question_by_id(id){
+			var myParams = new XMLHttpRequest();
+			myParams.open("GET", "OneServlet?cmd="+"getQuestionByID"+"&qid="+id, true);
+			myParams.send();
+			
+			myParams.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					var postData = JSON.parse(myParams.responseText.trim());
+					var newHTML = "";
+					
+					newHTML +="<div id=\"qid"+id+"\">"
+					var numAnswers = postData["num"];
+					
+					for (var j = 0; j < numAnswers; j++) {
+						newHTML += "<div class=\"postResponseDiv\">";
+						newHTML += "<a>" + postData["answers"][j]["text"] + "</a>";
+						newHTML += "<a><i style=\"color:#aaa\"> - " + postData["answers"][j]["userName"] + "</i></a><br/>";
+						newHTML += "</div></br>";
+					}
+					newHTML += "</div>";
+					
+					document.getElementById("qid"+id).innerHTML = newHTML;
+				}
+			};
+
+		}
+		
+		
+		function interval() {
+			  //setInterval(function(){ loadPosts(curr_selection) }, 5000);
+			  setInterval(function(){ update_all_posts() }, 10000);
+			  setInterval(function(){ update_questions() }, 5000);
+			  
+		}
+		
+		function update_all_posts(){
+			if(!is_active && !on_load_new_post){
+				loadPost(curr_postid);
+			}
+		}
+		
+		//var load_question_by_id(){
+			
+		//}
+				
 		sessionStorage.setItem("currCode","Pick Class");
 			function selectClass() {
 				sessionStorage.setItem("classChosen", "1");
@@ -179,24 +252,25 @@
 					return false;
 				}
 				
-				
 				var newHTML = "";
 				var i = 0;
 				newHTML += "<br/><a class=\"classTitle\">" + classData["classes"][i]["code"] + "</a>";
 				newHTML += "<b class=\"className\" > -- " + classData["classes"][i]["name"] + "";
-				document.getElementById("classPickerSelect").SelectedValue = classData["classes"][i]["code"];
+				
+				
+				
 				
 				var theseParams = new XMLHttpRequest();
 				theseParams.open("GET", "OneServlet?cmd="+"checkClass" + "&classID=" + classData["classes"][i]["id"], false);
 				theseParams.send();
 				
+				
 				var enrolled = "";
 				if (theseParams.responseText.trim().length > 0)
 					enrolled = theseParams.responseText.trim();				
 				
-				
-				
 				if (userName.length != 0) {
+					
 					if (enrolled.length == 0) {
 						newHTML += "<button id=\"addButton" + classData["classes"][i]["id"] + "\" onclick =\"addClass(" + classData["classes"][i]["id"] + ")\" class=\"classAddButton\"> </button>";
 						//CHNAGED FOR BUTTON STYLIZING
@@ -213,6 +287,7 @@
 				else {
 					//document.getElementById("newButton").innerHTML = "";
 				}
+				
 				
 				newHTML += "<br/><br/>";//"</br><b class=\"classDescription\" >" + classData["classes"][i]["description"] + "</b></br></br>";
 				
@@ -257,11 +332,12 @@
 				}
 				
 				document.getElementById("postsSection").innerHTML = "<br/><br/><b></b>Post added successfully<br/><br/>";
-				
+				on_load_new_post = false;
 				return false;
 			}
 			
 			function loadNewPost() {
+				on_load_new_post = true;
 				var newHTML = "";
 				
 				newHTML += "<br/><form name=\"newPostForm\" onsubmit=\"return newPost()\">";
@@ -341,6 +417,9 @@
 			}
 			
 			function loadAssignments() {
+				
+				curr_selection = "Assignments";
+
 				loadPosts("Assignments");
 				
 				document.getElementById("aButton").className = "categoryActive";
@@ -349,6 +428,9 @@
 			}
 			
 			function loadExams() {
+				
+				curr_selection = "Exams";
+
 				loadPosts("Exams");
 				
 				document.getElementById("aButton").className = "category";
@@ -358,7 +440,8 @@
 			
 			function loadOther() {
 				//TODO: load other from database
-				
+				curr_selection = "Other";
+
 				loadPosts("Other");
 				
 				document.getElementById("aButton").className = "category";
@@ -372,6 +455,8 @@
 				//alert("loadPage()");
 				checkSignedIn();	
 				loadAssignments();
+				interval();
+
 			}
 		
 			function newQuestion(postID) {
@@ -436,7 +521,7 @@
 			
 			function loadPost(postID) {
 				//alert("Load post #" + postID);
-				
+				curr_postid = postID;
 				
 				
 				var myParams = new XMLHttpRequest();
@@ -459,7 +544,7 @@
 				//Ask a question form
 				if (isSignedIn()) {
 					newHTML += "<form style=\"margin-top:10px;\" name=\"newQuestionForm\" onsubmit=\"return newQuestion(" + postID + ")\">";
-					newHTML += "<input class=\"msInput\" name=\"text\" type=\"text\" placeholder=\"Ask a question...\">";
+					newHTML += "<input class=\"msInput\" name=\"text\" type=\"text\" placeholder=\"Ask a question...\" onfocusin=\"set_active()\" onfocusout=\"set_inactive()\">";
 					newHTML += "<input class=\"msButton\" name=\"registerButton\" type=\"submit\" value=\"ASK\"><br/></form>";
 					newHTML += "<b id=\"questionErrorMessage\" style=\"color:red;\"></b>";
 				}
@@ -467,6 +552,7 @@
 				
 				var numQuestions = postData["questions"]["num"];
 				
+				question_ids = [];
 				
 				for (var i = 0; i < numQuestions; i++) {
 					newHTML += "<div class=\"postQuestionDiv\">";
@@ -493,22 +579,23 @@
 					
 					if (isSignedIn()) {
 						newHTML += "<br/><form id=\"newAnswerForm" + postData["questions"]["questions"][i]["id"] + "\" onsubmit=\"return newAnswer(" + postData["questions"]["questions"][i]["id"] + ", " + postID + ")\">";
-						newHTML += "<input class=\"msInput\" name=\"text\" type=\"text\" placeholder=\"Your answer...\">";
+						newHTML += "<input class=\"msInput\" name=\"text\" type=\"text\" placeholder=\"Your answer...\" onfocusin=\"set_active()\" onfocusout=\"set_inactive()\">";
 						newHTML += "<input class=\"msButton\" name=\"registerButton\" type=\"submit\" value=\"REPLY\"><br/></form>";
 						newHTML += "<b id=\"answerErrorMessage" + postData["questions"]["questions"][i]["id"] + "\" style=\"color:red;\"></b>";
 					}
 					
 					newHTML += "</div>";
-					
+					newHTML +="<div id=\"qid"+postData["questions"]["questions"][i]["id"]+"\">"
 					var numAnswers = postData["questions"]["questions"][i]["answers"]["num"];
-					
+					question_ids.push(postData["questions"]["questions"][i]["id"]);
 					for (var j = 0; j < numAnswers; j++) {
 						newHTML += "<div class=\"postResponseDiv\">";
 						newHTML += "<a>" + postData["questions"]["questions"][i]["answers"]["answers"][j]["text"] + "</a>";
 						newHTML += "<a><i style=\"color:#aaa\"> - " + postData["questions"]["questions"][i]["answers"]["answers"][j]["userName"] + "</i></a><br/>";
 						newHTML += "</div></br>";
 					}
-				
+					newHTML += "</div>";
+
 					
 					//newHTML += "<br/><br/>";
 				}
