@@ -1,4 +1,4 @@
-# Stadplatz
+# Stadplatz: A chat/forum hybrid for students attending USC. This project was made using Eclipse. 
 
 Currently, Stadplatz is functional; if we were to deploy it now, students could create and log into accounts, join classes, create and replly to posts, and discuss their classes.
 
